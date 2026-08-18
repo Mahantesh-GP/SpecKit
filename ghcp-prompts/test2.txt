@@ -106,3 +106,22 @@ Update tasks.md and any affected design artifact.
 Then rerun /speckit.analyze.
 
 Do not implement code yet.
+
+
+
+---------------------------------------------
+
+Apply the remaining N1, N2 and N3 analyze remediations exactly as recommended:
+
+N1:
+Update contracts/import-api.md DatasetRowDto to include
+org, unit, team, pm and members as nullable strings.
+Update T043 so the DTO maps all NormalizedRolloutRow fields including these five fields.
+
+N2:
+Change T016 wording from "all seven entities" to "all eight entities".
+
+N3:
+Mark T053 as [P] because it has the same parallel dependency profile as T018/T019.
+
+Do not implement code.
