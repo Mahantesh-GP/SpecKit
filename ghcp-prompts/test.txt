@@ -1,0 +1,48 @@
+Review the failed items in checklists/readiness.md and update the Feature 001
+artifacts to close only the pre-tasks blockers.
+
+Priority 1 — resolve all "approved reference interpretation" deferrals.
+
+For FR-012, FR-013, FR-014, FR-017, FR-018, FR-019, FR-020 and FR-021,
+derive the concrete behavior from the approved RLLOT reference documents/code
+already available in this repository and encode the rules explicitly in spec.md.
+
+Do not leave wording such as:
+"consistent with approved reference interpretation"
+when the implementation rule can be stated directly.
+
+The spec must explicitly state, at minimum:
+
+- end-of-data / trailing-empty-row behavior
+- complete phase-status normalization mapping
+- complete Customer Approval normalization mapping
+- Pre/Post metric pairing behavior
+- metric category inheritance behavior
+- accepted Metrics Explanation / Metrics Explaination header variants
+- numeric metric parsing/formatting behavior
+- missing-value/default behavior
+
+Do not invent new behavior. If the approved reference evidence is inconsistent or
+does not determine a rule, stop and surface that exact item for clarification.
+
+Priority 2 — correct the remaining cross-artifact blockers identified by readiness.md:
+
+- define whether a batch containing warnings but no errors succeeds and activates;
+- define behavior if the atomic activation transaction itself fails;
+- remove stale DuplicateRowId warning/constraint terminology that contradicts the
+  clarified duplicate-row decision;
+- add the actual nullable date fields required on NormalizedRolloutRow;
+- reconcile ImportBatchStatus.Rejected with the HTTP 409 concurrent-import contract;
+- resolve the remaining scenario/edge-case gaps identified in CHK065-CHK070.
+
+Update spec.md first for business/observable behavior.
+Update plan.md, research.md, data-model.md, contracts/import-api.md and quickstart.md
+only where needed to stay consistent with the corrected spec.
+
+Then re-evaluate checklists/readiness.md and report:
+- passed count,
+- failed count,
+- remaining blockers,
+- safe deferrals.
+
+Do not generate tasks or implementation code.
