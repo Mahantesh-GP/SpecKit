@@ -124,4 +124,40 @@ Change T016 wording from "all seven entities" to "all eight entities".
 N3:
 Mark T053 as [P] because it has the same parallel dependency profile as T018/T019.
 
-Do not implement code.
+Do not implement
+
+
+
+
+
+_------------------
+
+Update the EXISTING Feature 001 specification:
+001-excel-import-validation.
+
+Do NOT create a new feature, branch, or feature directory.
+This is a requirement correction discovered during real DR workbook validation.
+
+The existing DR Excel workbooks use these physical worksheet names:
+
+BackEnd_Unit_Testing   -> Backend Unit Testing
+Gen_Test_Case          -> Generate Test Cases
+Gen_Scripts_4_PostMan  -> Generate PostMan Scripts
+FrontEnd_Unit_Testing  -> Frontend Unit Testing
+Integration_Testing    -> Integration Testing
+Vuln_Discovery         -> Vulnerability Discovery
+
+Correct spec.md so that:
+
+- Existing DR workbooks MUST NOT be renamed.
+- Every submitted DR workbook must contain these six required physical worksheet names.
+- Each physical worksheet name maps to the corresponding canonical business initiative.
+- The canonical initiative name is used in the normalized/domain dataset.
+- Physical worksheet names are an ingestion compatibility concern and must not become domain identifiers.
+- Existing missing-sheet behavior remains unchanged.
+- Existing additional-sheet behavior remains unchanged.
+- No DR-specific parsing branches are allowed.
+- This correction must preserve compatibility with the approved existing DR workbook format.
+
+Update the current Feature 001 spec only and report exactly which requirements were changed.
+Do not modify implementation in this step.
