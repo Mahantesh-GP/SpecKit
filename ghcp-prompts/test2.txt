@@ -45,3 +45,64 @@ Approved behavior:
 
 Update spec.md and data-model.md consistently, then re-evaluate readiness.md.
 Do not generate tasks yet.
+
+
+
+-------------------------
+
+Resolve the /speckit.analyze findings before implementation.
+
+HIGH:
+
+H1:
+Org, Unit, Team, PM and Members are in scope for Feature 001.
+Add them to NormalizedRolloutRow in data-model.md and update T012 accordingly.
+Do not remove them from FR-011.
+
+H2:
+Keep IImportLockService as the application abstraction.
+Add an Infrastructure implementation task for ImportLockService using the
+planned EF Core optimistic-concurrency/ImportLock mechanism.
+Update T030 SubmitImportBatch to consume IImportLockService rather than
+implementing EF Core locking directly.
+
+MEDIUM:
+
+M1:
+Update T020 to use/document the manual EF migration application step defined
+by quickstart.md. Remove the startup-or-manual ambiguity.
+
+M2:
+Make T034 the owner of complete FR-028 unreadable-workbook handling.
+Remove wording from T030 that implies FR-028 is already fully implemented in US1.
+
+M3:
+Make T028 the single implementation owner for FR-031 unrecognized-column
+detection and diagnostic recording.
+T049 should only verify the end-to-end behavior.
+Remove conflicting ownership from T035.
+
+M4:
+Update T016 to explicitly configure no cascade delete for the retained import
+audit chain ImportBatch -> WorkbookSubmission -> ImportDiagnostic.
+
+M5:
+Update T033 to sanitize the client-supplied filename before storing or passing it
+to application logic. Remove path separators/control characters and treat the
+filename only as display/source metadata.
+
+LOW:
+
+L1:
+Remove duplicate lock-release implementation detail from T030 and keep T046 as
+the explicit lock-release hardening/verification task.
+
+L2:
+Use distinct diagnostic codes for:
+- duplicate row number within a sheet
+- duplicate row number across DR workbooks
+
+Update tasks.md and any affected design artifact.
+Then rerun /speckit.analyze.
+
+Do not implement code yet.
