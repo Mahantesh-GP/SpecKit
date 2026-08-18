@@ -23,3 +23,25 @@ Do not reduce this to exact duplicate filename detection only.
 
 Update affected artifacts and re-evaluate readiness.md.
 Do not generate tasks yet.
+
+
+------------------------
+
+
+Correct FR-010 to match the approved extractor exactly.
+
+Do not add a "positive integer" or "lossless integer" rule.
+
+Approved behavior:
+- If the row-number cell is null/blank/falsy, treat it as an empty row for
+  end-of-data detection; it is not extracted as a data row.
+- Otherwise attempt the same integer conversion used by the reference extractor.
+- If integer conversion fails, silently treat the row as a non-data/label row.
+- If conversion succeeds, use the converted integer row number and extract the row.
+- Do not separately reject fractional numeric values unless the approved extractor
+  actually does so.
+- Do not claim numeric 0 is a valid data-row ID because the reference empty-row
+  check treats a falsy row-number value as empty.
+
+Update spec.md and data-model.md consistently, then re-evaluate readiness.md.
+Do not generate tasks yet.
