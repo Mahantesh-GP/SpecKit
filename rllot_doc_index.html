@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RLLOT SDD Spec-Kit — Document Index</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f1117; color: #e2e8f0; min-height: 100vh; }
+
+  header { background: linear-gradient(135deg, #1a1f2e 0%, #0d1117 100%); border-bottom: 1px solid #2d3748; padding: 32px 40px; }
+  header h1 { font-size: 1.6rem; font-weight: 700; color: #f0f6fc; letter-spacing: -0.3px; }
+  header p { color: #8b949e; margin-top: 6px; font-size: 0.9rem; }
+  .meta { display: flex; gap: 24px; margin-top: 16px; flex-wrap: wrap; }
+  .meta-chip { background: #21262d; border: 1px solid #30363d; border-radius: 20px; padding: 4px 14px; font-size: 0.78rem; color: #8b949e; }
+  .meta-chip span { color: #58a6ff; font-weight: 600; }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 36px 40px; }
+
+  .summary-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; margin-bottom: 40px; }
+  .stat-card { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 18px 20px; }
+  .stat-card .num { font-size: 2rem; font-weight: 700; color: #58a6ff; line-height: 1; }
+  .stat-card .label { font-size: 0.78rem; color: #8b949e; margin-top: 4px; }
+
+  .category { margin-bottom: 32px; }
+  .cat-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .cat-badge { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; }
+  .cat-title { font-size: 1.05rem; font-weight: 600; color: #f0f6fc; }
+  .cat-desc { font-size: 0.8rem; color: #8b949e; margin-top: 2px; }
+  .cat-count { margin-left: auto; background: #21262d; border: 1px solid #30363d; border-radius: 12px; padding: 2px 10px; font-size: 0.75rem; color: #8b949e; }
+
+  .doc-grid { display: grid; gap: 10px; }
+  .doc-card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 14px 18px; display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: start; transition: border-color 0.15s; }
+  .doc-card:hover { border-color: #58a6ff44; }
+  .doc-name { font-size: 0.85rem; font-weight: 600; color: #58a6ff; font-family: 'Courier New', monospace; word-break: break-all; }
+  .doc-summary { font-size: 0.8rem; color: #8b949e; margin-top: 4px; line-height: 1.5; grid-column: 1 / -1; }
+  .doc-size { font-size: 0.72rem; color: #6e7681; background: #21262d; border-radius: 6px; padding: 2px 8px; white-space: nowrap; flex-shrink: 0; }
+  .doc-type { font-size: 0.7rem; border-radius: 4px; padding: 2px 7px; font-weight: 600; letter-spacing: 0.3px; }
+  .type-md { background: #1f4068; color: #58a6ff; }
+  .type-docx { background: #1c3a1c; color: #56d364; }
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; grid-column: 1 / -1; }
+  .tag { font-size: 0.68rem; background: #21262d; border: 1px solid #30363d; border-radius: 4px; padding: 1px 7px; color: #8b949e; }
+
+  /* Color themes per category */
+  .c1 .cat-badge { background: #1a3a5c; color: #58a6ff; }
+  .c1 .cat-title { color: #58a6ff; }
+  .c2 .cat-badge { background: #2d1f3d; color: #bc8cff; }
+  .c2 .cat-title { color: #bc8cff; }
+  .c3 .cat-badge { background: #1a3a2a; color: #56d364; }
+  .c3 .cat-title { color: #56d364; }
+  .c4 .cat-badge { background: #3d2800; color: #e3b341; }
+  .c4 .cat-title { color: #e3b341; }
+  .c5 .cat-badge { background: #3d1a1a; color: #f78166; }
+  .c5 .cat-title { color: #f78166; }
+  .c6 .cat-badge { background: #0d2535; color: #39c5cf; }
+  .c6 .cat-title { color: #39c5cf; }
+  .c7 .cat-badge { background: #2a2010; color: #d29922; }
+  .c7 .cat-title { color: #d29922; }
+  .c8 .cat-badge { background: #1a1a3a; color: #a5a5ff; }
+  .c8 .cat-title { color: #a5a5ff; }
+
+  .folder-path { font-family: 'Courier New', monospace; font-size: 0.73rem; color: #6e7681; background: #0d1117; border: 1px solid #21262d; border-radius: 6px; padding: 8px 14px; margin-bottom: 18px; }
+  .folder-path span { color: #58a6ff; }
+
+  footer { border-top: 1px solid #21262d; padding: 24px 40px; text-align: center; color: #6e7681; font-size: 0.78rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📁 RLLOT SDD Spec-Kit — Document Index</h1>
+  <p>Categorized knowledge base for the RLLOT Production Rollout Dashboard Modernization pilot</p>
+  <div class="meta">
+    <div class="meta-chip">Total documents: <span>17</span></div>
+    <div class="meta-chip">Categories: <span>8</span></div>
+    <div class="meta-chip">Project: <span>RLLOT SDD Pilot</span></div>
+    <div class="meta-chip">Indexed: <span>2026-08-18</span></div>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="summary-grid">
+    <div class="stat-card"><div class="num">3</div><div class="label">Discovery & Exploration</div></div>
+    <div class="stat-card"><div class="num">2</div><div class="label">Architecture & Design</div></div>
+    <div class="stat-card"><div class="num">3</div><div class="label">SDD & SpecKit Execution</div></div>
+    <div class="stat-card"><div class="num">1</div><div class="label">Gap & Comparison Analysis</div></div>
+    <div class="stat-card"><div class="num">2</div><div class="label">Management & Stakeholder</div></div>
+    <div class="stat-card"><div class="num">2</div><div class="label">Project Reference Context</div></div>
+    <div class="stat-card"><div class="num">2</div><div class="label">Journey Logs</div></div>
+    <div class="stat-card"><div class="num">2</div><div class="label">Technical Implementation Ref</div></div>
+  </div>
+
+  <div class="folder-path">📂 <span>SDD_speckit_init/</span> → 8 subfolders created on your device</div>
+
+  <!-- Category 1 -->
+  <div class="category c1">
+    <div class="cat-header">
+      <div class="cat-badge">01</div>
+      <div>
+        <div class="cat-title">Discovery & Exploration</div>
+        <div class="cat-desc">Multi-perspective problem exploration, product concepts, and modernization discovery before any implementation</div>
+      </div>
+      <div class="cat-count">3 files</div>
+    </div>
+    <div class="doc-grid">
+      <div class="doc-card">
+        <div class="doc-name">01-GREENFILED_EXPLORATION.md</div>
+        <span class="doc-type type-md">MD</span>
+        <div class="doc-summary">Greenfield multi-perspective product discovery covering business/product analyst, end user/manager, UX, data, security, ops, and architecture angles. Explores the core visibility gap in GenAI SDLC rollouts and what decisions the product must support.</div>
+        <div class="tags"><span class="tag">Greenfield</span><span class="tag">Product Discovery</span><span class="tag">GenAI Rollout</span><span class="tag">Multi-perspective</span></div>
+      </div>
+      <div class="doc-card">
+        <div class="doc-name">alternate-product-concept.md</div>
+        <span class="doc-type type-md">MD</span>
+        <div class="doc-summary">Critical panel evaluation of three competing product concepts: Initiative-Centric Tracker, Exception/Action-First Dashboard, and Org-Health Monitor. Each scored on decisions supported, complexity, access control needs, and future changeability.</div>
+        <div class="tags"><span class="tag">Product Concepts</span><span class="tag">Design Alternatives</span><span class="tag">Trade-off Analysis</span></div>
+      </div>
+      <div class="doc-card">
+        <div class="doc-name">RLLOT_Modernization_Discovery_Corrected.md</div>
+        <span class="doc-type type-md">MD</span>
+        <div class="doc-summary">Corrected baseline capturing current business capabilities, must-preserve business rules (status normalization, completion formula, metric display logic), constraints, pain points, and open questions for the modernization effort.</div>
+        <div class="tags"><span class="tag">Business Rules</span><span class="tag">Current State</span><span class="tag">Constraints</span><span class="tag">Modernization</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Category 2 -->
+  <div class="category c2">
+    <div class="cat-header">
+      <div class="cat-badge">02</div>
+      <div>
+        <div class="cat-title">Architecture & Design</div>
+        <div class="cat-desc">Architecture Decision Records and technical design decisions for the modernized application</div>
+      </div>
+      <div class="cat-count">2 files</div>
+    </div>
+    <div class="doc-grid">
+      <div class="doc-card">
+        <div class="doc-name">RLLOT_Architecture_Decision_Record.md</div>
+        <span class="doc-type type-md">MD</span>
+        <div class="doc-summary">ADR-001: Proposed baseline architecture for modernizing from static HTML to a dynamic server-side application. Covers decision drivers (zero-cost V1, IIS reuse, server-side auth), chosen stack (ASP.NET Core + React + SQLite), and rejected alternatives with rationale.</div>
+        <div class="tags"><span class="tag">ADR</span><span class="tag">ASP.NET Core</span><span class="tag">React</span><span class="tag">SQLite</span><span class="tag">IIS</span></div>
+      </div>
+      <div class="doc-card">
+        <div class="doc-name">RLLOT_Architecture_Decision_Record.docx</div>
+        <span class="doc-type type-docx">DOCX</span>
+        <div class="doc-summary">Word document version of ADR-001 — same content as the .md file, formatted for sharing with stakeholders or managers who prefer Office documents.</div>
+        <div class="tags"><span class="tag">ADR</span><span class="tag">Word Format</span><span class="tag">Stakeholder Share</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Category 3 -->
+  <div class="category c3">
+    <div class="cat-header">
+      <div class="cat-badge">03</div>
+      <div>
+        <div class="cat-title">SDD & Spec-Kit Execution</div>
+        <div class="cat-desc">Spec-Driven Development methodology application, feature execution playbook, and problems/decisions encountered during Spec Kit runs</div>
+      </div>
+      <div class="cat-count">3 files</div>
+    </div>
+    <div class="doc-grid">
+      <div class="doc-card">
+        <div class="doc-name">RLLOT_SPECKIT_FEATURE_EXECUTION_PLAYBOOK.md</div>
+        <span class="doc-type type-md">MD</span>
+        <div class="doc-summary">Step-by-step SDD roadmap for executing GitHub Spec Kit on the RLLOT project. Lists all features in dependency order (Feature 001 through 008), with the exact Spec Kit commands (/speckit.specify, .clarify, .plan, .tasks, .analyze, .implement, .converge) and what to expect at each gate.</div>
+        <div class="tags"><span class="tag">Spec Kit</span><span class="tag">Playbook</span><span class="tag">Feature Roadmap</span><span class="tag">GitHub Copilot</span></div>
+      </div>
+      <div class="doc-card">
+        <div class="doc-name">RLLOT_SPECKIT_EXECUTION_PROBLEMS_AND_DECISIONS.md</div>
+        <span class="doc-type type-md">MD</span>
+        <div class="doc-summary">Real execution journal for Feature 001 (Excel Import & Validation). Captures every AI misunderstanding, rejected recommendation, accepted clarification, spec correction, and lesson learned during /speckit.specify → .clarify → .plan → .checklist. High-value evidence for the SDD pilot.</div>
+        <div class="tags"><span class="tag">Feature 001</span><span class="tag">Execution Log</span><span class="tag">AI Corrections</span><span class="tag">Lessons Learned</span></div>
+      </div>
+      <div class="doc-card">
+        <div class="doc-name">RLLOT_SDD_Mindset_Manager_Articulation.md</div>
+        <span class="doc-type type-md">MD</span>
+        <div class="doc-summary">Explains the SDD thinking process applied to RLLOT before any Spec Kit commands were run — why technology was not chosen first, how business invariants were separated from legacy implementation, and how to articulate this approach to a manager or peer.</div>
+        <div class="tags"><span class="tag">SDD Mindset</span><span class="tag">Articulation Guide</span><span class="tag">Pre-specification</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Category 4 -->
+  <div class="category c4">
+    <div class="cat-header">
+      <div class="cat-badge">04</div>
+      <div>
+        <div class="cat-title">Gap & Comparison Analysis</div>
+        <div class="cat-desc">Systematic comparison of what was discovered vs what was actually implemented in the current system</div>
+      </div>
+      <div class="cat-count">1 file</div>
+    </div>
+    <div class="doc-grid">
+      <div class="doc-card">
+        <div class="doc-name">discovery vs implementation report.md</div>
+        <span class="doc-type type-md">MD</span>
+        <div class="doc-summary">Capability-by-capability gap analysis mapping discovery priorities to current implementation status. Identifies what is implemented (✅), partially implemented (⚠️), or missing (❌) — including trend computation, blocker tracking, RBAC, historical snapshots, and proactive alerting — none of which exist in the current build.</div>
+        <div class="tags"><span class="tag">Gap Analysis</span><span class="tag">Implementation vs Discovery</span><span class="tag">Capability Map</span><span class="tag">Priority Matrix</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Category 5 -->
+  <div class="category c5">
+    <div class="cat-header">
+      <div class="cat-badge">05</div>
+      <div>
+        <div class="cat-title">Management & Stakeholder</div>
+        <div class="cat-desc">Manager expectations, speaking guides, update scripts, and Q&A preparation for stakeholder communication</div>
+      </div>
+      <div class="cat-count">2 files</div>
+    </div>
+    <div class="doc-grid">
+      <div class="doc-card">
+        <div class="doc-name">RLLOT_Manager_Perspective_and_Office_Execution_Guide.md</div>
+        <span class="doc-type type-md">MD</span>
+        <div class="doc-summary">Consolidates manager expectations (use RLLOT as a real SDD learning exercise, not just a rewrite), the SDD mindset required, and exact next steps for executing Spec Kit on the office laptop with GitHub Copilot Chat. Bridges the "what" and "how" for the pilot.</div>
+        <div class="tags"><span class="tag">Manager Expectations</span><span class="tag">Execution Guide</span><span class="tag">Office Laptop</span><span class="tag">GHCP</span></div>
+      </div>
+      <div class="doc-card">
+        <div class="doc-name">RLLOT_MANAGER_UPDATE_AND_CROSS_QUESTIONS.md</div>
+        <span class="doc-type type-md">MD</span>
+        <div class="doc-summary">Ready-to-use 2-minute manager update script, show-order for the demo sequence (from original ask through to working Feature 001), and prepared answers to likely cross-questions about approach, AI usage, time spent, and next steps.</div>
+        <div class="tags"><span class="tag">Manager Update</span><span class="tag">Speaking Guide</span><span class="tag">Demo Sequence</span><span class="tag">Q&A Prep</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Category 6 -->
+  <div class="category c6">
+    <div class="cat-header">
+      <div class="cat-badge">06</div>
+      <div>
+        <div class="cat-title">Project Reference Context</div>
+        <div class="cat-desc">Master context documents — single source of truth for all project decisions, constraints, and current state</div>
+      </div>
+      <div class="cat-count">2 files</div>
+    </div>
+    <div class="doc-grid">
+      <div class="doc-card">
+        <div class="doc-name">RLLOT_MASTER_CONTEXT_UPDATED_2026-08-14.md</div>
+        <span class="doc-type type-md">MD</span>
+        <div class="doc-summary">Latest master context (Aug 14 update). Covers project goal, current production flow, all architectural decisions, accepted risks, feature backlog with dependencies, and open questions. Load this into any new AI session to avoid reconstructing context from chat history.</div>
+        <div class="tags"><span class="tag">Master Context</span><span class="tag">Latest</span><span class="tag">Single Source of Truth</span><span class="tag">Aug-14</span></div>
+      </div>
+      <div class="doc-card">
+        <div class="doc-name">RLLOT_MASTER_CONTEXT(2).md</div>
+        <span class="doc-type type-md">MD</span>
+        <div class="doc-summary">Earlier version of the master context document (pre-Aug 14). Retained as a historical baseline showing the state before the greenfield exploration and ADR finalization. Useful for diffing how thinking evolved.</div>
+        <div class="tags"><span class="tag">Master Context</span><span class="tag">Historical</span><span class="tag">Baseline</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Category 7 -->
+  <div class="category c7">
+    <div class="cat-header">
+      <div class="cat-badge">07</div>
+      <div>
+        <div class="cat-title">Journey Logs</div>
+        <div class="cat-desc">Time-ordered pilot journey records capturing the actual path, decisions, AI contributions, human corrections, and effort data</div>
+      </div>
+      <div class="cat-count">2 files</div>
+    </div>
+    <div class="doc-grid">
+      <div class="doc-card">
+        <div class="doc-name">RLLOT_SDD_JOURNEY_LOG(1).md</div>
+        <span class="doc-type type-md">MD</span>
+        <div class="doc-summary">Updated journey log (latest version). Records the full path from initial manager ask through discovery, greenfield exploration, ADR, and Spec Kit execution. Includes time-tracking rules, manager-ready answers, and stage-by-stage evidence for the SDD guideline.</div>
+        <div class="tags"><span class="tag">Journey Log</span><span class="tag">Latest</span><span class="tag">Pilot Evidence</span><span class="tag">Time Tracking</span></div>
+      </div>
+      <div class="doc-card">
+        <div class="doc-name">RLLOT_SDD_JOURNEY_LOG.md</div>
+        <span class="doc-type type-md">MD</span>
+        <div class="doc-summary">Original journey log (Aug 14 snapshot). Contains the journey summary flowchart, discovery-phase decisions, and early stage-by-stage notes before the Spec Kit execution phase began. Retained as the historical baseline of the log.</div>
+        <div class="tags"><span class="tag">Journey Log</span><span class="tag">Historical</span><span class="tag">Aug-14 Snapshot</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Category 8 -->
+  <div class="category c8">
+    <div class="cat-header">
+      <div class="cat-badge">08</div>
+      <div>
+        <div class="cat-title">Technical Implementation Reference</div>
+        <div class="cat-desc">Exact behavioral specs of the existing Python scripts — canonical source for re-implementing logic in any language</div>
+      </div>
+      <div class="cat-count">2 files</div>
+    </div>
+    <div class="doc-grid">
+      <div class="doc-card">
+        <div class="doc-name">SPECKIT_extract_data.md</div>
+        <span class="doc-type type-md">MD</span>
+        <div class="doc-summary">Spec-Kit reference for extract_data.py. Covers file discovery rules, DR name parsing regex, sheet-to-initiative mapping, all normalization functions (norm(), norm_ca()), metric extraction logic, and JSON output schema. Use when re-implementing the extractor in .NET/C#.</div>
+        <div class="tags"><span class="tag">extract_data.py</span><span class="tag">Python→.NET</span><span class="tag">ETL</span><span class="tag">Normalization Logic</span><span class="tag">JSON Schema</span></div>
+      </div>
+      <div class="doc-card">
+        <div class="doc-name">SPECKIT_build_rllot_dashboard.md</div>
+        <span class="doc-type type-md">MD</span>
+        <div class="doc-summary">Spec-Kit reference for build_rllot_dashboard.py. Documents JSON loading, all constants (SHEETS, STATUS_MAP, thresholds), every computation function (overall_progress, overdue detection, metric display rules), and the full HTML generation pipeline. Use when re-implementing the dashboard builder.</div>
+        <div class="tags"><span class="tag">build_dashboard.py</span><span class="tag">Dashboard Logic</span><span class="tag">Computation Rules</span><span class="tag">Thresholds</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>RLLOT SDD Spec-Kit · Document Index · Generated 2026-08-18 · 17 documents across 8 categories</footer>
+
+</body>
+</html>
