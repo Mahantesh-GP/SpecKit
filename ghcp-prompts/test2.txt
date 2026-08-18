@@ -1,0 +1,25 @@
+Before /speckit.tasks, perform one final compatibility correction pass.
+
+1. FR-020:
+Do not introduce new string-to-number parsing unless explicitly approved.
+Preserve the approved extractor behavior:
+- numeric Excel int/float values -> numeric value
+- string, datetime, error, or other non-numeric metric values -> null
+- no percentage scaling
+If this is intentionally changing, surface it for approval instead of silently changing compatibility behavior.
+
+2. FR-010:
+Do not state "positive integer" unless this is an explicitly approved new rule.
+Align with the approved row-ID interpretation from the reference extractor, including numeric values such as 1.0 being accepted and non-numeric label rows being skipped.
+
+3. Header scan:
+Reconcile the source-document inconsistency between "first 10 rows" and the extractor implementation reference stating the first 11 rows.
+Prefer the implementation reference unless there is stronger approved evidence.
+Document the exact final rule.
+
+4. Duplicate DR identity:
+Ensure the rule rejects two submitted workbooks that resolve to the same DR identity using the approved filename-derived DR parsing rule.
+Do not reduce this to exact duplicate filename detection only.
+
+Update affected artifacts and re-evaluate readiness.md.
+Do not generate tasks yet.
