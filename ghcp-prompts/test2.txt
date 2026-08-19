@@ -1,127 +1,48 @@
-Before /speckit.tasks, perform one final compatibility correction pass.
-
-1. FR-020:
-Do not introduce new string-to-number parsing unless explicitly approved.
-Preserve the approved extractor behavior:
-- numeric Excel int/float values -> numeric value
-- string, datetime, error, or other non-numeric metric values -> null
-- no percentage scaling
-If this is intentionally changing, surface it for approval instead of silently changing compatibility behavior.
-
-2. FR-010:
-Do not state "positive integer" unless this is an explicitly approved new rule.
-Align with the approved row-ID interpretation from the reference extractor, including numeric values such as 1.0 being accepted and non-numeric label rows being skipped.
-
-3. Header scan:
-Reconcile the source-document inconsistency between "first 10 rows" and the extractor implementation reference stating the first 11 rows.
-Prefer the implementation reference unless there is stronger approved evidence.
-Document the exact final rule.
-
-4. Duplicate DR identity:
-Ensure the rule rejects two submitted workbooks that resolve to the same DR identity using the approved filename-derived DR parsing rule.
-Do not reduce this to exact duplicate filename detection only.
-
-Update affected artifacts and re-evaluate readiness.md.
-Do not generate tasks yet.
 
 
-------------------------
+Run /speckit.clarify and paste:
+A real production DR workbook has revealed an additional source-schema rule that Feature 001 must support.
+
+The workbook contains three repeated header cells named "ETA":
+- ETA immediately following the Phase 1 status column belongs to Phase1Eta
+- ETA immediately following the Phase 2 status column belongs to Phase2Eta
+- ETA immediately following the Phase 3 status column belongs to Phase3Eta
+
+The current implementation appears to resolve headers using header text as a unique dictionary key, causing repeated "ETA" headers to overwrite each other and only the final ETA to be retained.
+
+Do NOT require the business Excel workbook to rename these columns.
+
+Clarify and update the Feature 001 specification so that:
+1. Duplicate header names such as ETA are resolved using their positional/phase context rather than assuming header names are globally unique.
+2. The first ETA associated with Phase 1 maps to Phase1Eta.
+3. The ETA associated with Phase 2 maps to Phase2Eta.
+4. The ETA associated with Phase 3 maps to Phase3Eta.
+5. All three values must be independently retained.
+6. Existing date normalization/null handling rules continue to apply.
+7. Existing supported canonical/header aliases must remain supported.
+8. Add an acceptance scenario proving that three different ETA values from one row are imported into the corresponding Phase1Eta, Phase2Eta and Phase3Eta fields.
+
+Update specification artifacts only at this stage. Do not modify implementation code yet.
 
 
-Correct FR-010 to match the approved extractor exactly.
+After clarify finishes, run /speckit.plan
+Update the Feature 001 implementation plan and supporting artifacts for the newly clarified repeated-ETA header rule.
 
-Do not add a "positive integer" or "lossless integer" rule.
+The HeaderResolver must support duplicate physical header names using column position and phase context instead of relying solely on a dictionary keyed by header text.
 
-Approved behavior:
-- If the row-number cell is null/blank/falsy, treat it as an empty row for
-  end-of-data detection; it is not extracted as a data row.
-- Otherwise attempt the same integer conversion used by the reference extractor.
-- If integer conversion fails, silently treat the row as a non-data/label row.
-- If conversion succeeds, use the converted integer row number and extract the row.
-- Do not separately reject fractional numeric values unless the approved extractor
-  actually does so.
-- Do not claim numeric 0 is a valid data-row ID because the reference empty-row
-  check treats a falsy row-number value as empty.
+Preserve current architecture and existing behavior. Do not require any changes to the source Excel workbook.
 
-Update spec.md and data-model.md consistently, then re-evaluate readiness.md.
-Do not generate tasks yet.
+Update relevant research, data-model, contracts and quickstart/testing guidance where applicable.
 
 
+Run /speckit.tasks with:
 
--------------------------
+Generate only the delta implementation and test tasks required for the repeated ETA header clarification.
 
-Resolve the /speckit.analyze findings before implementation.
+Preserve all previously completed Feature 001 task completion states. Do not reset completed tasks.
 
-HIGH:
-
-H1:
-Org, Unit, Team, PM and Members are in scope for Feature 001.
-Add them to NormalizedRolloutRow in data-model.md and update T012 accordingly.
-Do not remove them from FR-011.
-
-H2:
-Keep IImportLockService as the application abstraction.
-Add an Infrastructure implementation task for ImportLockService using the
-planned EF Core optimistic-concurrency/ImportLock mechanism.
-Update T030 SubmitImportBatch to consume IImportLockService rather than
-implementing EF Core locking directly.
-
-MEDIUM:
-
-M1:
-Update T020 to use/document the manual EF migration application step defined
-by quickstart.md. Remove the startup-or-manual ambiguity.
-
-M2:
-Make T034 the owner of complete FR-028 unreadable-workbook handling.
-Remove wording from T030 that implies FR-028 is already fully implemented in US1.
-
-M3:
-Make T028 the single implementation owner for FR-031 unrecognized-column
-detection and diagnostic recording.
-T049 should only verify the end-to-end behavior.
-Remove conflicting ownership from T035.
-
-M4:
-Update T016 to explicitly configure no cascade delete for the retained import
-audit chain ImportBatch -> WorkbookSubmission -> ImportDiagnostic.
-
-M5:
-Update T033 to sanitize the client-supplied filename before storing or passing it
-to application logic. Remove path separators/control characters and treat the
-filename only as display/source metadata.
-
-LOW:
-
-L1:
-Remove duplicate lock-release implementation detail from T030 and keep T046 as
-the explicit lock-release hardening/verification task.
-
-L2:
-Use distinct diagnostic codes for:
-- duplicate row number within a sheet
-- duplicate row number across DR workbooks
-
-Update tasks.md and any affected design artifact.
-Then rerun /speckit.analyze.
-
-Do not implement code yet.
-
-
-
----------------------------------------------
-
-Apply the remaining N1, N2 and N3 analyze remediations exactly as recommended:
-
-N1:
-Update contracts/import-api.md DatasetRowDto to include
-org, unit, team, pm and members as nullable strings.
-Update T043 so the DTO maps all NormalizedRolloutRow fields including these five fields.
-
-N2:
-Change T016 wording from "all seven entities" to "all eight entities".
-
-N3:
-Mark T053 as [P] because it has the same parallel dependency profile as T018/T019.
-
-Do not implement code.
+Include:
+- contextual/positional duplicate-header resolution
+- Phase1Eta/Phase2Eta/Phase3Eta mapping
+- regression/compatibility test using repeated ETA headers
+- verification that existing header aliases still work
