@@ -1,24 +1,4 @@
-•	Blocker = something preventing or seriously slowing progress. In agile/project work, blockers or impediments are things that stop or delay work from moving forward.
-RLLOT example: Backend Unit Testing is still In Progress because the team is waiting for customer approval.
-So instead of CTO seeing only:
-Backend Unit Testing → In Progress
-we could eventually show:
-Backend Unit Testing → In Progress | Blocker: Customer approval pending 
-•	Milestone = an important checkpoint we want to reach. Milestones are commonly used to group work and track progress toward an important point, often with a due date and completion percentage.
-RLLOT example:
-Milestone: All teams complete Phase 1 by September 30
-or
-Milestone: Vulnerability Discovery rollout completed for first 50 teams. 
-•	Target = the number or result we want to achieve. KPI systems compare the current value against a defined target to show whether we are ahead or behind.
-RLLOT example:
-Current: 65% teams completed Phase 1
-Target: 80% by end of month
-Then leadership immediately knows there is a 15% gap. 
-•	Data freshness = how recent the dashboard information is. Dashboards often show when data was last updated/refreshed so users know whether they are making decisions from current or stale information.
-RLLOT example:
-Last updated: 19 Aug, 4:30 PM
-If a DR workbook has not been updated for 10 days, leadership can see that the status may be stale. 
-•	Trend = whether something is improving, declining, or staying the same over time. KPI reporting commonly uses trends to help stakeholders identify movement or bottlenecks over a period.
-RLLOT example:
-Backend Unit Testing completion: June 40% → July 55% → August 72%
-That tells the CTO progress is improving, rather than showing only today's 72%. 
+“That exploration produced three possible product directions:
+1.	an Initiative-Centric Adoption Tracker — focused on how each initiative is progressing, 
+2.	an Exception/Action-First Rollout Manager — focused on what needs attention, what is delayed or blocked, and 
+3.	an Organizational Health view — focused on which organization, DR or team is progressing or struggling.” 
