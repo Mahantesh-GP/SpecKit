@@ -1,48 +1,24 @@
-
-
-Run /speckit.clarify and paste:
-A real production DR workbook has revealed an additional source-schema rule that Feature 001 must support.
-
-The workbook contains three repeated header cells named "ETA":
-- ETA immediately following the Phase 1 status column belongs to Phase1Eta
-- ETA immediately following the Phase 2 status column belongs to Phase2Eta
-- ETA immediately following the Phase 3 status column belongs to Phase3Eta
-
-The current implementation appears to resolve headers using header text as a unique dictionary key, causing repeated "ETA" headers to overwrite each other and only the final ETA to be retained.
-
-Do NOT require the business Excel workbook to rename these columns.
-
-Clarify and update the Feature 001 specification so that:
-1. Duplicate header names such as ETA are resolved using their positional/phase context rather than assuming header names are globally unique.
-2. The first ETA associated with Phase 1 maps to Phase1Eta.
-3. The ETA associated with Phase 2 maps to Phase2Eta.
-4. The ETA associated with Phase 3 maps to Phase3Eta.
-5. All three values must be independently retained.
-6. Existing date normalization/null handling rules continue to apply.
-7. Existing supported canonical/header aliases must remain supported.
-8. Add an acceptance scenario proving that three different ETA values from one row are imported into the corresponding Phase1Eta, Phase2Eta and Phase3Eta fields.
-
-Update specification artifacts only at this stage. Do not modify implementation code yet.
-
-
-After clarify finishes, run /speckit.plan
-Update the Feature 001 implementation plan and supporting artifacts for the newly clarified repeated-ETA header rule.
-
-The HeaderResolver must support duplicate physical header names using column position and phase context instead of relying solely on a dictionary keyed by header text.
-
-Preserve current architecture and existing behavior. Do not require any changes to the source Excel workbook.
-
-Update relevant research, data-model, contracts and quickstart/testing guidance where applicable.
-
-
-Run /speckit.tasks with:
-
-Generate only the delta implementation and test tasks required for the repeated ETA header clarification.
-
-Preserve all previously completed Feature 001 task completion states. Do not reset completed tasks.
-
-Include:
-- contextual/positional duplicate-header resolution
-- Phase1Eta/Phase2Eta/Phase3Eta mapping
-- regression/compatibility test using repeated ETA headers
-- verification that existing header aliases still work
+•	Blocker = something preventing or seriously slowing progress. In agile/project work, blockers or impediments are things that stop or delay work from moving forward.
+RLLOT example: Backend Unit Testing is still In Progress because the team is waiting for customer approval.
+So instead of CTO seeing only:
+Backend Unit Testing → In Progress
+we could eventually show:
+Backend Unit Testing → In Progress | Blocker: Customer approval pending 
+•	Milestone = an important checkpoint we want to reach. Milestones are commonly used to group work and track progress toward an important point, often with a due date and completion percentage.
+RLLOT example:
+Milestone: All teams complete Phase 1 by September 30
+or
+Milestone: Vulnerability Discovery rollout completed for first 50 teams. 
+•	Target = the number or result we want to achieve. KPI systems compare the current value against a defined target to show whether we are ahead or behind.
+RLLOT example:
+Current: 65% teams completed Phase 1
+Target: 80% by end of month
+Then leadership immediately knows there is a 15% gap. 
+•	Data freshness = how recent the dashboard information is. Dashboards often show when data was last updated/refreshed so users know whether they are making decisions from current or stale information.
+RLLOT example:
+Last updated: 19 Aug, 4:30 PM
+If a DR workbook has not been updated for 10 days, leadership can see that the status may be stale. 
+•	Trend = whether something is improving, declining, or staying the same over time. KPI reporting commonly uses trends to help stakeholders identify movement or bottlenecks over a period.
+RLLOT example:
+Backend Unit Testing completion: June 40% → July 55% → August 72%
+That tells the CTO progress is improving, rather than showing only today's 72%. 
