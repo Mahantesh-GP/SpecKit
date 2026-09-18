@@ -1,20 +1,79 @@
-## Azure DevOps Discussion Posting
+## Azure DevOps Discussion Formatting
 
-Build the complete clarification content as ONE SINGLE-LINE string.
+Create a readable Markdown-formatted clarification comment.
 
-Do not use multiline strings, here-strings, newline characters,
-or separate command arguments.
+The final ADO Discussion comment must follow this structure:
 
-Format:
+# SDD Clarification
 
-[SDD CLARIFICATION] | SDD-Q1 | RESOLVED | Topic: <topic> | Question: <question> | Decision: <decision> | SDD-Q2 | RESOLVED | Topic: <topic> | Question: <question> | Decision: <decision> | SDD-Q3 | RESOLVED | Topic: <topic> | Question: <question> | Decision: <decision>
+**Source:** Spec Kit  
+**ADO Work Item:** <WORK_ITEM_ID>
 
-Pass the complete single-line string as one value to --discussion:
+---
 
-az boards work-item update --id <WORK_ITEM_ID> --discussion "<COMPLETE_SINGLE_LINE_CONTENT>" --organization "https://dev.azure.com/fnf"
+## SDD-Q1 — RESOLVED
 
-Before executing, verify that the string contains every expected
-SDD-Q identifier.
+**Topic:** <topic>
 
-Do not report SUCCESS unless all expected clarification identifiers
-were included in the value passed to --discussion.
+**Question:**  
+<question>
+
+**Decision:**  
+<decision>
+
+---
+
+## SDD-Q2 — OUTSTANDING
+
+**Topic:** <topic>
+
+**Question:**  
+<question>
+
+**Decision:**  
+Awaiting business clarification.
+
+---
+
+**Summary:** <resolved-count> Resolved | <outstanding-count> Outstanding
+
+## Posting Rules
+
+1. Include every clarification found in the current specification.
+
+2. Preserve the stable identifiers:
+   SDD-Q1, SDD-Q2, SDD-Q3, etc.
+
+3. Do not invent an answer for an OUTSTANDING clarification.
+
+4. Do not modify the ADO User Story Description or Acceptance Criteria.
+
+5. Post the complete formatted content as ONE ADO Discussion comment.
+
+6. Because Azure CLI `--discussion` command-line multiline handling can
+   truncate content, do NOT pass a PowerShell multiline string directly
+   to `--discussion`.
+
+7. Use the Azure DevOps Work Item Comments API for formatted multiline
+   comments.
+
+8. Use the existing Azure CLI authentication/session to call Azure DevOps.
+   The developer must not be asked for a PAT.
+
+9. Send the complete comment as JSON with the comment text in the `text`
+   property and Markdown formatting enabled.
+
+10. After posting, read the created comment back from Azure DevOps.
+
+11. Verify that the persisted comment contains every expected
+    clarification identifier.
+
+    Example:
+    SDD-Q1
+    SDD-Q2
+    SDD-Q3
+
+12. Report SUCCESS only after the persisted ADO comment has been verified.
+
+13. If any expected clarification identifier is missing, report FAILED
+    instead of SUCCESS.
