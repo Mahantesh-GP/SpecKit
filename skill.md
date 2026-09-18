@@ -1,98 +1,51 @@
----
-name: ado-clarification-sync
-description: Sync Spec Kit clarification questions and decisions to the source Azure DevOps User Story Discussion.
----
+11. Build the complete Discussion content first as ONE string.
 
-# ADO Clarification Sync
+    The string must contain the header and ALL clarification
+    questions and decisions.
 
-## Purpose
+    Example content:
 
-Synchronize Spec Kit clarification results with the Discussion section
-of the Azure DevOps User Story that originated the specification.
+    [SDD CLARIFICATION]
 
-Azure DevOps remains the system of record for business clarification
-decisions.
+    SDD-Q1 | RESOLVED
+    Topic: Expiration State Representation
+    Question: <question>
+    Decision: <decision>
 
-## Azure DevOps Configuration
+    SDD-Q2 | RESOLVED
+    Topic: Expiration Period Configuration
+    Question: <question>
+    Decision: <decision>
 
-Organization:
-https://dev.azure.com/fnf
+    SDD-Q3 | RESOLVED
+    Topic: Expiration Check Mechanism
+    Question: <question>
+    Decision: <decision>
 
-Project:
-FNFI-EA
+12. Pass the ENTIRE constructed content as a single value to
+    Azure CLI --discussion.
 
-## Instructions
+    Do NOT execute the command with only the first line/header.
 
-1. Identify the current Spec Kit feature.
+    Use PowerShell variable assignment when multiline content
+    is required:
 
-2. Read its `spec.md`.
+    $discussion = @"
+    <COMPLETE_DISCUSSION_CONTENT>
+    "@
 
-3. Determine the source ADO Work Item ID from the specification
-   traceability information.
-
-4. If an ADO Work Item ID cannot be determined, stop and report:
-   "Source ADO User Story could not be identified."
-
-5. Find clarification questions and their current resolution state.
-
-6. Classify each clarification as:
-
-   RESOLVED
-   - A business answer/decision was provided during refinement.
-
-   OUTSTANDING
-   - The question requires a business decision that was not available.
-
-7. Assign each clarification a stable identifier:
-
-   SDD-Q1
-   SDD-Q2
-   SDD-Q3
-   ...
-
-8. Prepare one structured Discussion entry containing all
-   clarification results.
-
-   Format:
-
-   [SDD CLARIFICATION]
-
-   SDD-Q1 | RESOLVED
-
-   Question:
-   <question>
-
-   Decision:
-   <answer>
-
-   ---
-
-   SDD-Q2 | OUTSTANDING
-
-   Question:
-   <question>
-
-   Decision:
-   Awaiting business clarification.
-
-9. Do not invent answers for OUTSTANDING questions.
-
-10. Do not change the User Story Description or Acceptance Criteria.
-
-11. Add the clarification information to the Azure DevOps
-    User Story Discussion using Azure CLI:
-
-    az boards work-item update \
-      --id <WORK_ITEM_ID> \
-      --discussion "<DISCUSSION_CONTENT>" \
+    az boards work-item update `
+      --id <WORK_ITEM_ID> `
+      --discussion $discussion `
       --organization "https://dev.azure.com/fnf"
 
-12. Do not create duplicate clarification entries when the same
-    clarification has already been synchronized.
+13. Before executing the Azure CLI command, verify that the
+    $discussion value contains every SDD-Q identifier that is
+    being synchronized.
 
-13. After synchronization report:
+14. If 3 clarifications were identified, the discussion content
+    must contain SDD-Q1, SDD-Q2 and SDD-Q3 before the command
+    is executed.
 
-    - ADO Work Item ID
-    - number of resolved clarifications
-    - number of outstanding clarifications
-    - whether synchronization succeeded
+15. Never report synchronization as successful unless the
+    complete clarification content was submitted.
