@@ -1,19 +1,17 @@
 ---
-name: ado-import
-description: Import an Azure DevOps User Story into the repository as a clean SDD requirement document for Spec Kit.
+name: ado-clarification-sync
+description: Sync Spec Kit clarification questions and decisions to the source Azure DevOps User Story Discussion.
 ---
 
-# ADO User Story Import
+# ADO Clarification Sync
 
-Import an Azure DevOps User Story and prepare it as an input requirement for Spec Kit.
+## Purpose
 
-## Input
+Synchronize Spec Kit clarification results with the Discussion section
+of the Azure DevOps User Story that originated the specification.
 
-The user must provide an Azure DevOps Work Item ID.
-
-Example:
-
-Import ADO User Story 904676
+Azure DevOps remains the system of record for business clarification
+decisions.
 
 ## Azure DevOps Configuration
 
@@ -25,93 +23,76 @@ FNFI-EA
 
 ## Instructions
 
-1. Verify that an Azure DevOps Work Item ID was provided.
+1. Identify the current Spec Kit feature.
 
-2. Fetch the work item using Azure CLI:
+2. Read its `spec.md`.
 
-   az boards work-item show --id <WORK_ITEM_ID> --organization "https://dev.azure.com/fnf" --output json
+3. Determine the source ADO Work Item ID from the specification
+   traceability information.
 
-3. Do not ask the developer to manually copy content from Azure DevOps.
+4. If an ADO Work Item ID cannot be determined, stop and report:
+   "Source ADO User Story could not be identified."
 
-4. Verify that the returned work item is a User Story.
+5. Find clarification questions and their current resolution state.
 
-5. Extract only the SDD-relevant fields:
-   - System.Id
-   - System.Title
-   - System.WorkItemType
-   - System.State
-   - System.Description
-   - Microsoft.VSTS.Common.AcceptanceCriteria
-   - System.Tags
-   - System.IterationPath
+6. Classify each clarification as:
 
-6. Preserve the Description and Acceptance Criteria faithfully.
-   Do not invent, rewrite, or add business requirements.
+   RESOLVED
+   - A business answer/decision was provided during refinement.
 
-7. Convert HTML contained in Description or Acceptance Criteria into readable Markdown while preserving the meaning.
+   OUTSTANDING
+   - The question requires a business decision that was not available.
 
-8. Create a Markdown requirement document using this structure:
+7. Assign each clarification a stable identifier:
 
-   # ADO User Story <ID> - <TITLE>
+   SDD-Q1
+   SDD-Q2
+   SDD-Q3
+   ...
 
-   ## Traceability
+8. Prepare one structured Discussion entry containing all
+   clarification results.
 
-   - ADO Work Item: <ID>
-   - Work Item Type: <TYPE>
-   - State: <STATE>
-   - Iteration: <ITERATION>
-   - Tags: <TAGS>
+   Format:
 
-   ## User Story
+   [SDD CLARIFICATION]
 
-   <DESCRIPTION>
+   SDD-Q1 | RESOLVED
 
-   ## Acceptance Criteria
+   Question:
+   <question>
 
-   <ACCEPTANCE_CRITERIA>
+   Decision:
+   <answer>
 
-9. Determine the destination folder from the Azure DevOps
-   `System.IterationPath` field.
+   ---
 
-   Example:
+   SDD-Q2 | OUTSTANDING
 
-   System.IterationPath:
-   FNFI-EA\SDD-Experiment\Sprint-3
+   Question:
+   <question>
 
-   Extract the final segment:
+   Decision:
+   Awaiting business clarification.
 
-   Sprint-3
+9. Do not invent answers for OUTSTANDING questions.
 
-10. Store the generated requirement under:
+10. Do not change the User Story Description or Acceptance Criteria.
 
-    ADO/refinement/<ITERATION>/
+11. Add the clarification information to the Azure DevOps
+    User Story Discussion using Azure CLI:
 
-    Example:
+    az boards work-item update \
+      --id <WORK_ITEM_ID> \
+      --discussion "<DISCUSSION_CONTENT>" \
+      --organization "https://dev.azure.com/fnf"
 
-    ADO/refinement/Sprint-3/
+12. Do not create duplicate clarification entries when the same
+    clarification has already been synchronized.
 
-11. Do not infer the active sprint by examining existing repository folders.
+13. After synchronization report:
 
-12. The Azure DevOps `System.IterationPath` is the authoritative source
-    for determining the destination sprint folder.
-
-13. If the corresponding iteration folder does not exist, create it.
-
-14. Use the iteration name exactly as returned by Azure DevOps.
-    Do not rename or normalize the iteration name unless required for
-    filesystem compatibility.
-
-15. Create the requirement filename using:
-
-    US-<ID>-<sanitized-title>.md
-
-    Example:
-
-    US-904676-Todo-Expiration.md
-
-16. The resulting path should therefore be:
-
-    ADO/refinement/<ITERATION>/US-<ID>-<sanitized-title>.md
-
-
-
+    - ADO Work Item ID
+    - number of resolved clarifications
+    - number of outstanding clarifications
+    - whether synchronization succeeded
