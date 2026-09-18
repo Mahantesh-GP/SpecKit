@@ -70,21 +70,48 @@ FNFI-EA
 
    <ACCEPTANCE_CRITERIA>
 
-9. Store the generated requirement under the existing ADO/refinement structure.
+9. Determine the destination folder from the Azure DevOps
+   `System.IterationPath` field.
 
-10. Use a filename in this format:
+   Example:
+
+   System.IterationPath:
+   FNFI-EA\SDD-Experiment\Sprint-3
+
+   Extract the final segment:
+
+   Sprint-3
+
+10. Store the generated requirement under:
+
+    ADO/refinement/<ITERATION>/
+
+    Example:
+
+    ADO/refinement/Sprint-3/
+
+11. Do not infer the active sprint by examining existing repository folders.
+
+12. The Azure DevOps `System.IterationPath` is the authoritative source
+    for determining the destination sprint folder.
+
+13. If the corresponding iteration folder does not exist, create it.
+
+14. Use the iteration name exactly as returned by Azure DevOps.
+    Do not rename or normalize the iteration name unless required for
+    filesystem compatibility.
+
+15. Create the requirement filename using:
 
     US-<ID>-<sanitized-title>.md
 
-11. Do not modify application source code.
+    Example:
 
-12. Do not run speckit-specify automatically.
+    US-904676-Todo-Expiration.md
 
-13. After creating the file, report:
-    - imported ADO Work Item ID
-    - title
-    - generated requirement file path
-    - whether Description was found
-    - whether Acceptance Criteria were found
+16. The resulting path should therefore be:
 
-14. Recommend using the generated Markdown file as the authoritative input for the next speckit-specify operation.
+    ADO/refinement/<ITERATION>/US-<ID>-<sanitized-title>.md
+
+
+
