@@ -1,0 +1,176 @@
+SDD / GitHub Spec Kit
+Usage Guidelines
+Manager-aligned pilot guidance for existing Scrum / Azure DevOps teams
+Reference implementation: Todo application pilot
+Updated: 09 September 2026
+Status
+Pilot guidance pending validation with real project teams. This document is not an organization-wide mandate or SLA.
+
+
+1. Purpose and Positioning
+These guidelines describe how Spec-Driven Development (SDD), using GitHub Spec Kit as the current reference implementation, can fit inside an existing Scrum delivery model. The intent is not to replace Scrum, Azure DevOps (ADO), refinement, Sprint Planning, Git, pull requests, testing, or existing role responsibilities.
+Core principle
+ADO remains the system of record for User Stories, Acceptance Criteria, estimates, sprint, state, ownership and delivery tracking. SDD artifacts support requirement clarity, technical reasoning and implementation.
+
+
+2. Pilot Context: Existing Todo Application
+The pilot used an existing basic Todo application that could create and view Todo items. We used this working application as a brownfield reference/baseline and introduced additional capabilities through a normal Scrum process.
+Create and View Todos formed the initial working baseline.
+Additional User Stories were created and managed in Azure DevOps.
+Stories were refined before Sprint Planning.
+SDD was applied selectively where it could add useful reasoning or clarification.
+Implementation continued through normal sprint development, branches, reviews and testing.
+The Todo application is a controlled reference for learning the operating model; it does not represent the full complexity of a production brownfield system.
+3. Where SDD Fits in Scrum
+Recommended pre-sprint flow:
+ADO User Story  →  Backlog Refinement  →  Assess SDD Suitability  →  Specify / Clarify
+→  Resolve Decisions with BA/PO  →  Update ADO/AC  →  Update Spec  →  Ready for Sprint Planning
+During refinement, SDD can help expose ambiguity, missing edge cases, dependencies and behavioral decisions. If a material business question is unresolved, the story should not be treated as SDD-assisted ready merely because a specification exists.
+After sprint commitment / assignment:
+Plan  →  Tasks  →  Analyze  →  Implement  →  Converge  →  Test / Review / PR
+4. Selective SDD - Not Every Story
+SDD should be selected based on the story and expected value, not applied mechanically to every backlog item.
+Story characteristic
+Suggested approach
+Reason
+Medium/high complexity, ambiguity, behavioral edge cases
+SDD-assisted
+Clarification and structured reasoning can add value.
+Related stories forming one coherent capability
+Consider shared SDD feature
+Shared behavior/reasoning may be useful while keeping ADO story visibility.
+Very small/localized change
+Normal development is valid
+Avoid process/document overhead where it adds little value.
+
+5. Requirement Authority and Clarification
+The authoritative requirement comes from the approved project source, normally the ADO User Story, Acceptance Criteria and decisions from the appropriate business/product stakeholders. AI may identify gaps and phrase questions, but it must not invent business behavior.
+Use /speckit.specify to structure the behavior from the authoritative story/context.
+Use /speckit.clarify when ambiguity or missing decisions need to be surfaced.
+Post material business questions back to the corresponding ADO User Story for BA/PO/business resolution.
+Record the authoritative decision in ADO/Acceptance Criteria as appropriate, then align the specification.
+If nobody in refinement knows the answer, preserve it as an Outstanding Question rather than guessing.
+Asynchronous clarification
+An unanswered question can remain explicitly visible in the specification (for example, under Outstanding Questions), be surfaced to ADO, answered asynchronously by the appropriate stakeholder, and then reflected back into both the authoritative requirement and supporting spec.
+
+
+6. Actual Pilot Evidence - UX & Pagination
+The UX & Pagination story demonstrated the strongest refinement value. The original story was understandable, but clarification exposed behavior that still required explicit decisions before implementation:
+Page size: 10 items.
+If completing or deleting the last item leaves the current page empty: automatically move to the previous page.
+Pagination indicator: show current page and total pages.
+Invalid page values (beyond last, zero or negative): clamp to the nearest valid page.
+Key learning
+The important outcome was not that Spec Kit generated another document. SDD improved the quality of the refinement conversation before coding started.
+
+
+7. Spec Kit Commands in the Delivery Journey
+Commands should be shown and used as part of the actual development journey, not treated as a separate command-by-command process.
+Intent
+Spec Kit reference
+Typical timing
+Define expected behavior
+/speckit.specify
+Refinement
+Resolve ambiguity
+/speckit.clarify
+Refinement
+Technical design
+/speckit.plan
+After sprint commitment / assignment
+Implementation breakdown
+/speckit.tasks
+After sprint commitment / assignment
+Pre-implementation consistency
+/speckit.analyze
+Sprint execution
+Implementation
+/speckit.implement
+Sprint execution
+Post-implementation alignment
+/speckit.converge
+Sprint execution
+
+Do not add extra prompts, documents or process steps simply because they are possible. If the standard command and existing context produce a useful result, keep the workflow simple. Enhance the prompt or process only when a demonstrated gap requires it.
+8. User Story ↔ Spec Kit Feature Mapping
+Mapping
+Guidance
+Example
+Rule
+1 User Story → 1 feature
+Default / preferred
+UX & Pagination
+Use when the story is cohesive and independently understandable/testable.
+Multiple related User Stories → 1 feature
+Allowed
+Complete + Delete → Todo Lifecycle Operations
+Use only when the stories form one coherent capability and retain ADO visibility.
+1 User Story → multiple features
+Discouraged
+Broad Due Date capability
+Return to refinement and split the broad story when it contains independently valuable capabilities.
+Simple User Story → no SDD feature
+Valid
+Icon/text-only localized change
+Use normal development when SDD adds little value.
+
+A Spec Kit feature is a supporting development artifact. It does not replace the ADO User Story as the planning, estimation, assignment and sprint-tracking unit.
+9. Multi-Developer Operating Model
+SDD should fit normal team development rather than introduce a separate collaboration model.
+ADO continues to own User Story assignment and delivery tracking.
+Developers continue to use normal feature branches, pull requests, reviews, merge/rebase practices and daily Scrum coordination.
+A specification belongs to the feature/capability and can be a shared behavioral baseline for developers working on related stories.
+Start parallel work from the same reviewed/refined specification baseline where practical.
+A physical code conflict is resolved through normal Git practices.
+A semantic/specification conflict is resolved with the appropriate business or technical authority, followed by alignment of the shared baseline and impacted work.
+10. Handling Change During the Sprint
+Specifications are allowed to evolve. Do not blindly regenerate every artifact after every change.
+Business behavior change: clarify → BA/PO decision → update ADO/AC → update shared spec → update impacted tasks/tests/code → notify affected developers.
+Technical-only change: engineering decision → update plan/design if needed → notify affected developers → continue.
+Propagate only to impacted artifacts and implementations.
+11. Roles and Authority
+Role
+Responsibility in SDD-assisted delivery
+PO / Business
+Owns business intent and authoritative behavioral decisions.
+BA
+Supports refinement, requirement clarity and Acceptance Criteria; helps resolve/surface business questions.
+Developer
+Uses SDD where appropriate, maintains development artifacts, identifies gaps, implements and keeps changes aligned.
+QA / Tester
+Uses clarified behavior and Acceptance Criteria to support validation; raises gaps rather than assuming behavior.
+Scrum Master / Manager
+Keeps normal Scrum flow and team coordination; SDD does not create a separate delivery process.
+
+12. What the Todo Pilot Proved - and Did Not Prove
+The pilot provided useful evidence for the operating approach:
+SDD can fit within normal ADO/Scrum refinement and sprint execution.
+Clarification can expose missing behavioral decisions before coding.
+Selective usage is more appropriate than forcing SDD onto every story.
+User Story-to-feature mapping can remain traceable without tightly integrating ADO APIs initially.
+The pilot did not prove:
+Organization-wide time or productivity savings.
+Full parallel multi-developer behavior in a complex production project.
+All brownfield dependencies, legacy constraints or cross-team integration scenarios.
+That every User Story or every project should use SDD.
+13. Recommended Next Step
+Validate this operating model with a small number of real project teams inside their normal mixed sprints. Keep the existing Scrum/ADO process, select suitable stories, capture evidence, and refine the guidance based on actual project experience.
+What ambiguity or dependencies were discovered before coding?
+What changed in ADO/Acceptance Criteria because of clarification?
+Was the SDD overhead manageable for the story?
+Did Analyze/Converge expose useful alignment issues?
+How did developers, BA/PO and QA experience the workflow?
+What happened when multiple developers or shared components were involved?
+14. One-Page Quick Reference
+Before Sprint Planning
+Start from the authoritative ADO User Story. Refine normally. Assess whether SDD adds value. If selected, Specify and Clarify. Resolve material business questions with BA/PO, update ADO/AC, align the spec, and only then treat it as ready.
+
+
+During the Sprint
+Use Plan → Tasks → Analyze → Implement → Converge as needed. Continue normal branches, PRs, testing, review and Scrum coordination.
+
+
+Always
+ADO is the system of record. AI assists; it does not invent business requirements. Use SDD selectively. Keep the process as simple as the real need allows.
+
+

@@ -1,144 +1,38 @@
-# ADO Import
-
-Import one or more Azure DevOps User Stories into the local repository
-for use with the Spec Kit workflow.
-
-## Input
-
-Accept one or more Azure DevOps Work Item IDs separated by spaces.
-
-Examples:
-
-Single User Story:
-
-/ado-import 904676
-
-Multiple User Stories:
-
-/ado-import 904676 904677 904678
-
-Extract all numeric Work Item IDs from the supplied arguments.
-
-If no valid Work Item ID is provided, stop and ask the user to provide
-at least one Azure DevOps Work Item ID.
-
-Do not treat multiple IDs as a single value.
+13. ADO → Spec Kit Integration - Reference Capability and Extension Model
+The pilot also explored a lightweight integration between Azure DevOps and Spec Kit. The purpose is to reduce manual copying while preserving the existing project operating model. This is one workable reference solution, not a mandatory organization-wide process. Projects may adopt, extend or omit integration behaviors based on their own workflow and governance.
+13.1 Validated Pilot Capability
+The Todo pilot validated the following integration path:
+Start from an existing ADO User Story rather than creating the business requirement inside Spec Kit.
+Use the Azure CLI with the Azure DevOps extension and the developer’s existing organizational authentication to read the selected work item.
+Use the custom /ado-import Agent Skill to bring the selected ADO User Story into the local repository as structured requirement context, preserving the ADO Work Item ID for traceability.
+Continue with the normal Spec Kit engineering journey: Specify → Clarify → Plan → Tasks → Analyze → Implement, as appropriate for the selected story/capability.
+Use the custom /ado-clarification-sync capability to surface material clarification decisions/questions to the corresponding ADO User Story Discussion where useful. ADO remains the authoritative business/backlog record.
+Reference flow
+Select relevant ADO User Story ID(s) → Import ADO context → Define / Clarify → Record material decisions/questions in the relevant ADO story → Establish reviewed specification baseline → Continue normal development, QA, Git and PR flow.
+13.2 One Story, Multiple Stories and Feature Boundaries
+The integration should not force a one-to-one
+ mapping when the product behavior does not justify it. A developer or team may select one story, or selected related stories, as input to refinement. The team still decides the appropriate specification boundary using the mapping guidance in Section 8.
+One cohesive User Story can normally map to one Spec Kit feature.
+Multiple related User Stories may contribute to one coherent feature/specification when their behavior belongs together; each source ADO story must remain traceable.
+A broad story that contains independently valuable capabilities should normally return to refinement rather than being mechanically split by the tool.
+The planned enhancement to /ado-import is to accept selected IDs in one invocation (for example: /ado-import 123 456 789). This is an extension direction, not a requirement to download an entire sprint.
 
 
-## Processing
+Tooling and Developer Experience
+The pilot implementation uses Azure CLI + the Azure DevOps extension as the connectivity layer because MCP is not currently the selected path for this experiment. The custom Agent Skills sit around standard Spec Kit rather than modifying the core Spec Kit skills. The intended adoption model is: platform/EA maintains the reusable integration capability; a project configures its ADO context; each developer completes prerequisites/authentication once and then works primarily through the exposed commands.
+Prerequisites are installed/validated once per developer environment; they should not be rechecked for every User Story request unless execution reports a missing dependency or authentication problem.
+ADO organization/project configuration should be centralized at project level rather than duplicated or hard-coded independently in every skill.
+Credentials/PATs must not be stored in repository configuration. Authentication remains developer/environment specific.
+If distributed through the EA Marketplace as a Copilot plugin, installation should make the approved Agent Skills available to the developer; project teams should not need to recreate the skills manually.
+13.5 Project-Selectable Extensions
+The current pilot should not be presented as the only possible integration model. Depending on project feedback and governance, the same integration layer can be extended later. These are options, not baseline requirements:
+Publish or link the reviewed specification and supporting artifacts from ADO.
+Create selected ADO Tasks from an agreed implementation breakdown, if the project wants task-level synchronization.
+Synchronize selected task/User Story status transitions where that adds value.
+Support automatic closure rules, PR/commit linking or other traceability automation.
+Read later BA/PO answers from ADO and reconcile them into the local specification for asynchronous clarification round trips.
+13.6 Community Reference vs Pilot Direction
+The community pragya247/spec-kit-azure-devops approach was reviewed as a reference. Its demonstrated direction is primarily to synchronize Spec Kit artifacts such as spec.md/tasks.md toward Azure DevOps. The Todo pilot requirement starts from an existing ADO User Story and brings that context into the local SDD workflow. Therefore the community approach is useful reference material, but it is not treated as a drop-in fit for the pilot requirement.
+Positioning for project teams
+This integration is an optional, extensible bridge between ADO and the SDD engineering workflow. It does not require teams to replace their current Scrum, refinement, work-item, Git, QA or pull-request practices. Start with the validated minimum, gather project-team feedback, and extend only where a concrete need is demonstrated
 
-Process each Work Item ID independently.
-
-For each Work Item ID:
-
-1. Retrieve the work item from Azure DevOps using:
-
-   az boards work-item show --id <WORK_ITEM_ID> \
-     --organization "https://dev.azure.com/fnf" \
-     --output json
-
-2. Verify that the retrieved work item is a User Story.
-
-3. Extract:
-
-   - System.Id
-   - System.Title
-   - System.WorkItemType
-   - System.State
-   - System.Description
-   - Microsoft.VSTS.Common.AcceptanceCriteria
-   - System.Tags
-   - System.IterationPath
-
-4. Preserve the original Description and Acceptance Criteria faithfully.
-
-5. Convert Azure DevOps HTML content into readable Markdown.
-
-6. Do not invent, infer, or add requirements that are not present in
-   the Azure DevOps User Story.
-
-7. Determine the destination folder independently for each User Story
-   from System.IterationPath.
-
-   Example:
-
-   FNFI-EA\SDD-Experiment\Sprint-3
-
-   becomes:
-
-   ADO/refinement/Sprint-3/
-
-8. Create the destination folder if it does not already exist.
-
-9. Create one Markdown file per User Story using:
-
-   US-<WORK_ITEM_ID>-<sanitized-title>.md
-
-   Example:
-
-   US-904676-Todo-Expiration.md
-
-10. Never combine multiple User Stories into a single Markdown file.
-
-11. Do not automatically run speckit-specify after importing.
-
-
-## Batch Processing Rules
-
-When multiple Work Item IDs are supplied:
-
-- Process them sequentially.
-- Treat every Work Item ID independently.
-- One failed Work Item must not stop the remaining imports.
-- Do not combine Description or Acceptance Criteria across User Stories.
-- Each User Story must retain its own ADO traceability.
-- Each User Story must use its own System.IterationPath when determining
-  the destination folder.
-- Do not assume all supplied User Stories belong to the same sprint.
-- Do not overwrite an existing requirement file without informing the user.
-
-
-## Failure Handling
-
-If an individual Work Item cannot be retrieved:
-
-- Mark that Work Item as failed.
-- Record the reason.
-- Continue processing the remaining Work Item IDs.
-
-If a Work Item exists but is not a User Story:
-
-- Do not import it as a User Story.
-- Mark it as skipped.
-- Report its actual Work Item Type.
-- Continue processing the remaining IDs.
-
-
-## Output
-
-For a single import, report:
-
-ADO Import Complete
-
-Work Item: <ID>
-Title: <TITLE>
-Iteration: <ITERATION>
-File: <GENERATED_FILE_PATH>
-Description: Found / Not Found
-Acceptance Criteria: Found / Not Found
-
-
-For multiple imports, provide a summary such as:
-
-ADO Import Complete
-
-Work Item | Status | File
-904676    | Imported | ADO/refinement/Sprint-3/US-904676-Todo-Expiration.md
-904677    | Imported | ADO/refinement/Sprint-3/US-904677-Example.md
-904678    | Failed   | Work Item not found
-904679    | Skipped  | Work Item Type: Bug
-
-Summary:
-2 Imported
-1 Failed
-1 Skipped
