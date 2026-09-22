@@ -10,7 +10,7 @@ Two commands for integrating Azure DevOps with the Spec Kit workflow.
 | Command | Purpose |
 |---|---|
 | `/ado-import <ID> [ID...]` | Pull User Stories from ADO into the local repo |
-| `/ado-clarify-sync <ID>` | Post Spec Kit clarification Q&A back to ADO discussion |
+| `/ado-clarify-sync <ID> [ID...]` | Post Spec Kit clarification Q&A to one or more ADO story discussions |
 
 
 ## Shared: Config Resolution
@@ -201,96 +201,125 @@ Summary:
 
 ## Command: /ado-clarify-sync
 
-Post Spec Kit clarification questions and decisions back to the Azure DevOps
-work item discussion so the PO and stakeholders can see and respond to them.
+Post Spec Kit clarification questions and decisions back to Azure DevOps
+work item discussions so the PO and stakeholders can see and respond.
+
+Supports single-story and multi-story (combined feature) scenarios.
+When multiple Work Item IDs are provided, the same clarification comment
+is posted to every story — this is the correct pattern when two or more
+stories were refined together as one feature.
 
 ### Input
 
 ```
-/ado-clarify-sync 904676
+/ado-clarify-sync <ID>
+/ado-clarify-sync <ID1> <ID2> [ID3...]
 ```
 
-Extract the numeric Work Item ID from the argument.
+Examples:
+
+```
+/ado-clarify-sync 904676
+/ado-clarify-sync 900328 900332
+```
+
+Extract all numeric Work Item IDs from the supplied arguments.
 If no valid Work Item ID is provided, stop and ask the user for one.
 
 ### Source File Resolution
 
-1. Search for the imported User Story file matching the Work Item ID:
+The clarification content is the SAME for all provided Work Item IDs.
+Find it once, then post it to each story.
 
-   ```
-   ADO/refinement/*/US-<WORK_ITEM_ID>-*.md
-   ```
+Search for the clarification source in this order:
 
-2. If no matching file is found, stop and report:
+**1. Feature-level spec folder (multi-story scenario)**
 
-   ```
-   ERROR: No local file found for Work Item <ID>.
-   Run /ado-import <ID> first.
-   ```
+When multiple IDs are supplied, search the `specs/` folder for a file
+containing clarifications that references any of the supplied IDs:
 
-3. Read the file and locate the clarifications section.
+```
+specs/**/clarifications.md
+specs/**/spec.md
+specs/**/*.md
+```
 
-   The clarifications section begins with a heading such as:
-   - `## Clarifications`
-   - `## Outstanding Questions`
-   - `## SDD Clarifications`
+Read each candidate and look for a clarifications section with a heading such as:
+- `## Clarifications`
+- `## SDD Clarifications`
+- `## Outstanding Questions`
 
-   If no clarifications section is found, stop and report:
+Use the first file found that contains clarification content.
 
-   ```
-   No clarifications found in <FILE_PATH>.
-   Run speckit.clarify first to generate clarification questions.
-   ```
+**2. Individual story file (single-story scenario)**
+
+If no feature-level file is found, search for the imported User Story file:
+
+```
+ADO/refinement/*/US-<WORK_ITEM_ID>-*.md
+```
+
+Example:
+
+```
+ADO/refinement/Sprint-3/US-904676-Todo-Expiration.md
+```
+
+Read the file and locate the clarifications section.
+
+**3. No clarifications found**
+
+If neither search finds a clarifications section, stop and report:
+
+```
+No clarifications found for Work Item(s) <IDs>.
+Run speckit.clarify first to generate clarification questions.
+```
 
 ### Comment Format
 
-Build the ADO Discussion comment using this structure:
+Build the ADO Discussion comment as **HTML** (not Markdown).
+The ADO Comments API renders HTML — Markdown syntax will appear as
+raw text if posted directly.
 
-```
-# SDD Clarification
+Use this HTML structure:
 
-**Source:** Spec Kit  
-**ADO Work Item:** <WORK_ITEM_ID>
+```html
+<h1>SDD Clarification</h1>
+<p>
+  <strong>Source:</strong> Spec Kit<br>
+  <strong>ADO Work Item(s):</strong> <WORK_ITEM_ID(s)>
+</p>
+<hr>
 
----
+<h2>SDD-Q1 &mdash; RESOLVED</h2>
+<p><strong>Topic:</strong> <topic></p>
+<p><strong>Question:</strong><br><question></p>
+<p><strong>Decision:</strong><br><decision></p>
+<hr>
 
-## SDD-Q1 — RESOLVED
+<h2>SDD-Q2 &mdash; OUTSTANDING</h2>
+<p><strong>Topic:</strong> <topic></p>
+<p><strong>Question:</strong><br><question></p>
+<p><strong>Decision:</strong><br>Awaiting business clarification.</p>
+<hr>
 
-**Topic:** <topic>
-
-**Question:**  
-<question>
-
-**Decision:**  
-<decision>
-
----
-
-## SDD-Q2 — OUTSTANDING
-
-**Topic:** <topic>
-
-**Question:**  
-<question>
-
-**Decision:**  
-Awaiting business clarification.
-
----
-
-**Summary:** <resolved-count> Resolved | <outstanding-count> Outstanding
+<p><strong>Summary:</strong> <resolved-count> Resolved | <outstanding-count> Outstanding</p>
 ```
 
 Rules:
-- Include every clarification found in the file.
+- Include every clarification found in the source file.
 - Preserve stable identifiers: SDD-Q1, SDD-Q2, SDD-Q3, etc.
 - Do not invent a Decision for OUTSTANDING items.
 - Do not modify the ADO Description or Acceptance Criteria.
+- The comment body is identical for every Work Item ID in the batch.
 
 ### Posting the Comment
 
 Do NOT pass a multiline string directly to `az boards`. Use `az rest`
 with a temporary JSON file to avoid truncation.
+
+#### For each Work Item ID, repeat these steps:
 
 **Step 1 — Write comment to temp JSON file:**
 
@@ -300,7 +329,7 @@ with a temporary JSON file to avoid truncation.
 
 ```json
 {
-  "text": "<escaped-markdown-body>"
+  "text": "<escaped-html-body>"
 }
 ```
 
@@ -316,47 +345,68 @@ az rest \
 
 Capture the full JSON response.
 
-**Step 3 — Clean up:**
+**Step 3 — Verify the posted comment:**
 
-Delete `.ado-comment-temp.json` after posting, whether posting succeeded or failed.
+Extract `id` from the POST response, then read it back:
 
-### Verification
+```bash
+az rest \
+  --method GET \
+  --uri "https://dev.azure.com/<ADO_ORG>/<ADO_PROJECT>/_apis/wit/workItems/<WORK_ITEM_ID>/comments/<COMMENT_ID>?api-version=7.1-preview.3"
+```
 
-1. Extract `id` from the POST response (the created comment ID).
+Confirm the returned `text` field contains every expected identifier
+(SDD-Q1, SDD-Q2, etc.).
 
-2. Read the comment back:
+**Step 4 — Clean up:**
 
-   ```bash
-   az rest \
-     --method GET \
-     --uri "https://dev.azure.com/<ADO_ORG>/<ADO_PROJECT>/_apis/wit/workItems/<WORK_ITEM_ID>/comments/<COMMENT_ID>?api-version=7.1-preview.3"
-   ```
-
-3. Confirm the returned `text` field contains every expected identifier
-   (SDD-Q1, SDD-Q2, etc.).
-
-4. Report SUCCESS only if all identifiers are present.
-   If any are missing, report FAILED and list which ones are absent.
+Delete `.ado-comment-temp.json` after ALL stories are processed,
+or if posting fails. Never leave this file behind.
 
 ### Output
+
+Single story:
 
 ```
 ADO Clarify Sync Complete
 
 Org      : <ADO_ORG>      (source: config file | az defaults)
 Project  : <ADO_PROJECT>  (source: config file | az defaults)
+Source   : <SOURCE_FILE_PATH>
 Work Item: <ID>
-Title    : <TITLE>
-File     : <SOURCE_FILE_PATH>
 Comment ID : <ADO_COMMENT_ID>
 Resolved   : <N>
 Outstanding: <N>
 Status   : SUCCESS / FAILED
 ```
 
+Multiple stories (same clarification posted to each):
+
+```
+ADO Clarify Sync Complete
+
+Org     : <ADO_ORG>      (source: config file | az defaults)
+Project : <ADO_PROJECT>  (source: config file | az defaults)
+Source  : <SOURCE_FILE_PATH>
+Resolved   : <N>
+Outstanding: <N>
+
+Work Item | Status  | Comment ID
+900328    | SUCCESS | 12345
+900332    | SUCCESS | 12346
+900333    | FAILED  | az rest error: 404
+
+Summary:
+2 SUCCESS
+1 FAILED
+```
+
 ### Failure Handling
 
-- If `az rest` returns a non-2xx status, report the HTTP status and response body.
-- If the Work Item does not exist in ADO, report the error and stop.
-- If authentication fails, tell the user to run `az login` and retry.
-  Do not ask for a PAT.
+- A failed POST to one Work Item must not stop posting to the remaining IDs.
+- If `az rest` returns a non-2xx status, mark that Work Item as FAILED and
+  record the HTTP status and response body.
+- If a Work Item does not exist in ADO, mark it as FAILED and continue.
+- If authentication fails on any call, stop all remaining posts and tell
+  the user to run `az login` and retry. Do not ask for a PAT.
+- Always delete `.ado-comment-temp.json` even when posting fails.
