@@ -36,3 +36,12 @@ The reference should demonstrate:
 Reuse the existing Adaptive Workflow architecture and patterns.
 
 Do not implement Commitment Typing business logic or real DocNav integration. Commitment Typing is only the reference use case; consuming teams will implement their actual service integrations after handover.
+
+
+
+
+
+/specify modified 
+
+
+Update User Story 3 to clarify that this pilot only demonstrates and documents the ability for a consuming team to replace the placeholder implementation. Do not require implementing or calling a second or real external service as part of this feature. The real integration belongs to the consuming team after handover. Keep the existing architectural requirement that replacement must not require changes to the orchestrator, activity-registry pattern, or workflow-definition format.
