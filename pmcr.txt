@@ -1,13 +1,1 @@
-$body = @{
-    process = "referenceexternal"
-    variant = "REFEXT"
-    correlationId = "quickstart-002"
-} | ConvertTo-Json
-
-$response = Invoke-RestMethod `
-    -Method Post `
-    -Uri "http://localhost:7059/api/HttpStartOrchestrator" `
-    -ContentType "application/json" `
-    -Body $body
-
-$response
+dotnet sln .\WorkflowActivities.slnx add .\OrchestratorModels\OrchestratorModels.csproj .\WorkflowActivities\WorkflowActivities.csproj
