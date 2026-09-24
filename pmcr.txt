@@ -1,11 +1,12 @@
-$body = @{
-    process = "referenceexternal"
-    variant = "REFEXT"
-    correlationId = "quickstart-001"
-} | ConvertTo-Json
+$eventBody = @{
+    eventName = "ExternalServiceCompleted"
+    payload = @{
+        outcome = "Processed"
+    }
+} | ConvertTo-Json -Depth 3
 
 Invoke-RestMethod `
     -Method Post `
-    -Uri "http://localhost:7059/api/HttpStartOrchestrator" `
+    -Uri "<PASTE-SEND-EVENT-POST-URI-HERE>/raiseEvent/ExternalServiceCompleted" `
     -ContentType "application/json" `
-    -Body $body
+    -Body $eventBody
