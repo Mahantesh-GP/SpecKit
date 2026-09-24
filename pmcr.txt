@@ -1,1 +1,1 @@
-'{"IsEncrypted":false,"Values":{"FUNCTIONS_WORKER_RUNTIME":"dotnet-isolated"}}' | Set-Content local.settings.json
+curl.exe -X POST http://localhost:7059/api/HttpStartOrchestrator -H "Content-Type: application/json" -d '{ "process": "referenceexternal", "variant": "REFEXT", "correlationId": "quickstart-001" }'
