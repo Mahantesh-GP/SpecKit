@@ -1,1 +1,11 @@
-curl.exe -X POST http://localhost:7059/api/HttpStartOrchestrator -H "Content-Type: application/json" -d '{ "process": "referenceexternal", "variant": "REFEXT", "correlationId": "quickstart-001" }'
+$body = @{
+    process = "referenceexternal"
+    variant = "REFEXT"
+    correlationId = "quickstart-001"
+} | ConvertTo-Json
+
+Invoke-RestMethod `
+    -Method Post `
+    -Uri "http://localhost:7059/api/HttpStartOrchestrator" `
+    -ContentType "application/json" `
+    -Body $body
