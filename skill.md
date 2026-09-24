@@ -1,9 +1,1 @@
-Update only User Story 3 and its acceptance/test wording.
-
-The intent is to demonstrate and document that a consuming team CAN replace the placeholder with its own real implementation after handover.
-
-Do not require this feature to implement a real external integration or create a second/alternate implementation merely to prove replacement.
-
-The reference architecture and documentation should make the replacement point clear: the consuming team replaces the placeholder implementation and its DI registration/configuration while the orchestrator, ActivityRegistry pattern, workflow definition format, and generic framework remain unchanged.
-
-Keep all other requirements and scope unchanged.
+Review the generated plan and supporting artifacts for generic naming and framework boundaries. The reference feature must remain service/domain agnostic. Replace classification-specific reference names such as IExternalClassificationClient, ExternalClassificationRequest, ExternalClassificationSubmissionResult, RequestDocumentClassification, and ExternalClassificationCompleted with generic external-service reference terminology. Do not introduce reference-specific branching into ProcessOrchestrator, FileWorkflowDefinitionSource, or other shared orchestration/runtime code. Reuse the repository's existing workflow discovery/registration convention. Preserve the existing Activity, ExternalEvent, timeout, activity registry, DI, and raise-event mechanisms. Do not implement a real DocNav or Commitment Typing integration.
