@@ -1,1 +1,23 @@
-dotnet sln .\WorkflowActivities.slnx add .\OrchestratorModels\OrchestratorModels.csproj .\WorkflowActivities\WorkflowActivities.csproj
+/speckit.constitution
+
+Create the constitution for this WorkflowActivities project.
+
+Principles:
+
+1. Spec-driven development in this workspace is scoped to workflow activity development.
+
+2. Each workflow activity must expose a clear contract: it receives a defined model/input and returns a defined model/result.
+
+3. Shared orchestration models form the contract boundary between workflow activities and their consumers.
+
+4. Keep workflow activities focused on exposing the activity contract. Complex business logic or external API integration must be implemented separately and referenced through appropriate interfaces/services.
+
+5. Integration implementations must be independently implementable and testable. They may use additional dependencies required by the external system without coupling those dependencies to unrelated activities.
+
+6. Workflow activities should be testable independently wherever practical. Use mocks, stubs, or placeholder implementations when the real external service is unavailable.
+
+7. Keep the WorkflowActivities project a simple C# library with only the dependencies required for its activity contracts and shared models. Integration-specific dependencies should remain within their implementation boundary.
+
+8. Specifications, plans, tasks, and implementations created in this workspace must remain within the workflow-activity development boundary.
+
+Goal: provide clean activity contracts and implementations that allow different business capabilities and external integrations to be exposed as workflow activities while maintaining clear separation of concerns.
