@@ -1,21 +1,6 @@
-/specify
-
-Implement a DocNav request activity using the DocNav documentation available under docs/docnav as the authoritative reference.
-
-Assume that DocNav client onboarding has already been completed. The scope is only the implementation required to use DocNav.
-
-Target the DocNav development environment.
-
-Use the supplied DocNav documentation to determine:
-- the appropriate authentication approach
-- how to submit a DocNav request
-- the required request and response structure
-- request examples
-- error handling and validation requirements
-- recommended best practices
-
-The implementation should follow the existing WorkflowActivities architecture and established contract/service patterns in this repository.
-
-Do not implement DocNav client onboarding.
-
-Derive the implementation requirements from the supplied documentation rather than assuming DocNav API behavior.
+Implement a DocNav request activity in the existing WorkflowActivities project.
+Use docs/docnav/Getting Started - DocNav API Documentation.pdf as the primary authoritative reference and use the supplied DocNav API/OpenAPI documentation only where needed to resolve the exact API contract.
+DocNav client onboarding has already been completed and is out of scope. Do not implement client onboarding or client configuration.
+The activity should implement the DocNav PDF upload request flow, not the batch/blob submission flow. Target the DocNav Development environment.
+Derive from the supplied documentation the required authentication, PDF submission endpoint, request format, required headers/fields, response structure, validation/error handling, request examples, and documented best practices. Do not invent undocumented DocNav behavior.
+Follow the existing WorkflowActivities architecture and the established contract/service abstraction pattern in this repository. The implementation must remain locally testable without requiring a real DocNav call.
