@@ -1,12 +1,21 @@
-/speckit.specify
+/specify
 
-Create a reference external API integration activity that demonstrates how a consuming team can integrate an external service through WorkflowActivities.
+Implement a DocNav request activity using the DocNav documentation available under docs/docnav as the authoritative reference.
 
-The activity should:
-- accept the standard workflow activity input contract,
-- delegate the external operation through a separate service abstraction,
-- return the standard workflow activity result,
-- keep external-service-specific logic outside the activity,
-- support a placeholder/stub implementation so the activity can be tested without access to a real external API.
+Assume that DocNav client onboarding has already been completed. The scope is only the implementation required to use DocNav.
 
-This is a reusable reference pattern only. Do not implement any specific business workflow or real external system integration.
+Target the DocNav development environment.
+
+Use the supplied DocNav documentation to determine:
+- the appropriate authentication approach
+- how to submit a DocNav request
+- the required request and response structure
+- request examples
+- error handling and validation requirements
+- recommended best practices
+
+The implementation should follow the existing WorkflowActivities architecture and established contract/service patterns in this repository.
+
+Do not implement DocNav client onboarding.
+
+Derive the implementation requirements from the supplied documentation rather than assuming DocNav API behavior.
