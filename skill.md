@@ -1,13 +1,5 @@
-                ┌──────────────┐
-                │ Program.cs   │
-                │ pretending   │
-                │ to be engine │
-                └──────┬───────┘
-                       ↓
-              DocNavRequestActivity
-                       ↓
-              IDocNavRequestService
-                       ↓
-              DocNavRequestStubService
-                       ↓
-                 SUCCESS ✅
+I worked on the DocNav request reference implementation in Adaptive Workflow, following the contract/service separation we discussed.
+Implemented the IDocNavRequestActivity / DocNavRequestActivity, IDocNavRequestService, and a no-network DocNavRequestStubService. I also added extension points for the future real integration (IDocNavAccessTokenProvider, IDocNavDocumentSource, and DocNav configuration options). No real DocNav API/authentication/onboarding logic has been implemented at this stage.
+I validated it locally using a small console test project. The test creates a WorkflowActivityInput → executes DocNavRequestActivity → calls the stub service → returns an ActivityExecutionResult. The stub successfully returned a simulated Accepted response with requestId and monitorUrl. I also ran dotnet build on WorkflowActivities successfully.
+One thing I noticed: the DocNav activity is currently implemented/tested at the WorkflowActivities layer, but it is not yet wired into the AdaptiveOrchestrator runtime (ActivityRegistry / Durable WorkflowActivities function wrapper). I wanted to confirm this direction with you before adding that wiring.
+Repo/branch for reference: [paste your repo URL + branch name here]. You can also refer to specs/002-docnav-request-activity/quickstart.md for the local validation flow.
