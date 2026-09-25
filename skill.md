@@ -1,1 +1,84 @@
-Review the generated plan and supporting artifacts for generic naming and framework boundaries. The reference feature must remain service/domain agnostic. Replace classification-specific reference names such as IExternalClassificationClient, ExternalClassificationRequest, ExternalClassificationSubmissionResult, RequestDocumentClassification, and ExternalClassificationCompleted with generic external-service reference terminology. Do not introduce reference-specific branching into ProcessOrchestrator, FileWorkflowDefinitionSource, or other shared orchestration/runtime code. Reuse the repository's existing workflow discovery/registration convention. Preserve the existing Activity, ExternalEvent, timeout, activity registry, DI, and raise-event mechanisms. Do not implement a real DocNav or Commitment Typing integration.
+                 COMMITMENT TYPING
+                        │
+                        │ Start process
+                        ▼
+              HttpStartOrchestrator
+                        │
+                        ▼
+              WorkflowDefinitionProvider
+                        │
+                        ▼
+               commitment.base.json
+                        │
+                        ▼
+                ProcessOrchestrator
+                        │
+                        │ sees:
+                        │ activityKey = DocNavRequest
+                        ▼
+                  ActivityRegistry
+                        │
+                        ▼
+              WorkflowActivities.cs
+          (thin Azure Function wrapper)
+                        │
+                        ▼
+              IDocNavRequestActivity
+                        │
+                        ▼
+               DocNavRequestActivity
+                │               │
+                │ validate      │
+                │ map input     │
+                ▼               │
+          IDocNavRequestService │
+                │               │
+                ▼               │
+       RealDocNavRequestService │
+                │
+        ┌───────┼─────────┐
+        ▼       ▼         ▼
+ Access Token  APIM    Document
+  Provider     Key      Source
+        │       │         │
+        └───────┼─────────┘
+                ▼
+             DocNav API
+                │
+                │ 202 Accepted
+                ▼
+        requestId = DOC-789
+                │
+                ▼
+        DocNavSubmissionResult
+                │
+                ▼
+        DocNavRequestActivity
+                │
+                ▼
+        ActivityExecutionResult
+                │
+                ▼
+          ProcessOrchestrator
+                │
+                ▼
+      WAIT: ExternalEvent
+         "DocNavCompleted"
+                .
+                .
+                . DocNav processing
+                .
+                ▼
+         DocNav completion
+                │
+                ▼
+      WebSocket/callback handler
+                │
+                ▼
+        Raise Durable Event
+                │
+                ▼
+          ProcessOrchestrator
+                │
+                ▼
+          NEXT WORKFLOW STEP
