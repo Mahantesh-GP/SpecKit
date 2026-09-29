@@ -1,5 +1,11 @@
-Accept C1. Proceed with the documented exception for this feature.
+/speckit.specify
 
-There is currently no automated test project in the AdaptiveWorkflowEngine solution. For this implementation, use the planned stub-based validation, quickstart manual validation, and build verification. Real Azure Blob + DocNav DEV integration validation will be performed when the required DocNav credentials/configuration are available from the team.
+Read initial-review.md and evaluate all review findings against the existing
+DocNav feature specification.
 
-Do not introduce a new test project solely for this feature.
+Update the existing specification where the review identifies missing,
+incomplete, or unclear requirements.
+
+Preserve the current feature scope and architecture.
+Do not create a new feature.
+Do not add unrelated requirements.
