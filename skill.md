@@ -1,1 +1,5 @@
-Update the specification so that DocNav ConfigId is optional, consistent with the attached DocNav Job Submission API documentation. When it is not supplied, submission should rely on DocNav's documented default configuration behavior. Update the affected requirements, scenarios, edge cases, and assumptions consistently. Do not change the rest of the feature scope.
+Accept C1. Proceed with the documented exception for this feature.
+
+There is currently no automated test project in the AdaptiveWorkflowEngine solution. For this implementation, use the planned stub-based validation, quickstart manual validation, and build verification. Real Azure Blob + DocNav DEV integration validation will be performed when the required DocNav credentials/configuration are available from the team.
+
+Do not introduce a new test project solely for this feature.
