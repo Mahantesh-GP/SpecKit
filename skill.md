@@ -1,19 +1,7 @@
-/speckit.constitution
+Refine the constitution to keep it concise and durable.
 
-Create a concise constitution for the WorkflowActivities project with these principles:
+Keep the existing architectural principles and WorkflowActivities project boundary, but remove overly implementation-specific or change-prone details such as exact .NET version, exact file names, exact interface naming conventions, and prescribed one-interface-per-activity patterns.
 
-1. WorkflowActivities is the extension layer for implementing activities used by the Adaptive Workflow Engine. Feature development should remain within this boundary unless a justified change to shared components is required.
+Refer to the existing project architecture, shared contracts, coding conventions, dependency injection patterns, and target framework generically where possible.
 
-2. Follow existing project architecture and contracts. Reuse OrchestratorModels and existing activity contracts where possible rather than introducing unnecessary abstractions.
-
-3. Keep activities focused. External system or business-specific logic should be implemented through clear interfaces and service implementations, using dependency injection.
-
-4. Activities and external integrations must be independently testable. Use mocks/stubs when real external dependencies are unavailable.
-
-5. Never hard-code credentials, tokens, URLs, connection strings, or other environment-specific secrets.
-
-6. Keep changes minimal and feature-focused. Avoid unrelated framework changes or refactoring.
-
-7. Every feature must follow Spec-Driven Development: specification → plan → tasks → implementation, with developer review and appropriate testing at each stage.
-
-8. Generated code and artifacts must follow existing .NET/C# conventions, build successfully, and be reviewed before acceptance.
+The constitution should define stable engineering guardrails, not feature-level implementation decisions. Do not add any DocNav-specific requirements.
