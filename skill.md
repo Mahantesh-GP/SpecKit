@@ -1,11 +1,12 @@
-/speckit.specify
+Review the current WorkflowActivities project and the DocNavJobSubmission implementation.
 
-Read initial-review.md and evaluate all review findings against the existing
-DocNav feature specification.
+I now need to perform the deferred T023 real integration test using:
+- my Azure Blob PDF
+- real DocNav JWT token
+- real DocNav configuration/subscription key
 
-Update the existing specification where the review identifies missing,
-incomplete, or unclear requirements.
+First, only identify the existing intended local test entry point or test harness for invoking SubmitDocNavJobActivity.
 
-Preserve the current feature scope and architecture.
-Do not create a new feature.
-Do not add unrelated requirements.
+Do not modify any code yet.
+Do not expose or hardcode credentials.
+Tell me the exact project/file I should run and where WorkflowActivityInput is created.
