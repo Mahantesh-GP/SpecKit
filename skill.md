@@ -1,5 +1,19 @@
-I worked on the DocNav request reference implementation in Adaptive Workflow, following the contract/service separation we discussed.
-Implemented the IDocNavRequestActivity / DocNavRequestActivity, IDocNavRequestService, and a no-network DocNavRequestStubService. I also added extension points for the future real integration (IDocNavAccessTokenProvider, IDocNavDocumentSource, and DocNav configuration options). No real DocNav API/authentication/onboarding logic has been implemented at this stage.
-I validated it locally using a small console test project. The test creates a WorkflowActivityInput → executes DocNavRequestActivity → calls the stub service → returns an ActivityExecutionResult. The stub successfully returned a simulated Accepted response with requestId and monitorUrl. I also ran dotnet build on WorkflowActivities successfully.
-One thing I noticed: the DocNav activity is currently implemented/tested at the WorkflowActivities layer, but it is not yet wired into the AdaptiveOrchestrator runtime (ActivityRegistry / Durable WorkflowActivities function wrapper). I wanted to confirm this direction with you before adding that wiring.
-Repo/branch for reference: [paste your repo URL + branch name here]. You can also refer to specs/002-docnav-request-activity/quickstart.md for the local validation flow.
+/speckit.constitution
+
+Create a concise constitution for the WorkflowActivities project with these principles:
+
+1. WorkflowActivities is the extension layer for implementing activities used by the Adaptive Workflow Engine. Feature development should remain within this boundary unless a justified change to shared components is required.
+
+2. Follow existing project architecture and contracts. Reuse OrchestratorModels and existing activity contracts where possible rather than introducing unnecessary abstractions.
+
+3. Keep activities focused. External system or business-specific logic should be implemented through clear interfaces and service implementations, using dependency injection.
+
+4. Activities and external integrations must be independently testable. Use mocks/stubs when real external dependencies are unavailable.
+
+5. Never hard-code credentials, tokens, URLs, connection strings, or other environment-specific secrets.
+
+6. Keep changes minimal and feature-focused. Avoid unrelated framework changes or refactoring.
+
+7. Every feature must follow Spec-Driven Development: specification → plan → tasks → implementation, with developer review and appropriate testing at each stage.
+
+8. Generated code and artifacts must follow existing .NET/C# conventions, build successfully, and be reviewed before acceptance.
