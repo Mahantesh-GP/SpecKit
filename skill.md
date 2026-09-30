@@ -1,18 +1,9 @@
+### DocNav Submit Job Test
+POST {{AdaptiveOrchestrator_HostAddress}}/api/HttpStartOrchestrator
+Content-Type: application/json
+
 {
-  "workflowId": "DOCNAV TEST",
-  "variantKey": "base",
-  "version": "1.0",
-  "enabled": true,
-  "steps": [
-    {
-      "id": "submit-doc-nav-job",
-      "type": "Activity",
-      "name": "SubmitDocNavJob",
-      "activityKey": "SubmitDocNavJob",
-      "enabled": true,
-      "inputs": {
-        "fields": ["documentReference"]
-      }
-    }
-  ]
+  "process": "docnavtest",
+  "variant": "base",
+  "documentReference": "YOUR_BLOB_PDF_URL"
 }
