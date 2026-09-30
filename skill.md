@@ -1,3 +1,3 @@
-$env:DOCNAV_BASE_URL = "..."
-$env:DOCNAV_SUBSCRIPTION_KEY = "..."
-$env:DOCNAV_JWT = "..."
+.WithEnvironment("DOCNAV_BASE_URL", "https://localhost/")
+.WithEnvironment("DOCNAV_SUBSCRIPTION_KEY", "local-test-key")
+.WithEnvironment("DOCNAV_JWT", "local-test-token")
