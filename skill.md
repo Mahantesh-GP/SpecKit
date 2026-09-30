@@ -1,9 +1,14 @@
-### DocNav Submit Job Test
-POST {{AdaptiveOrchestrator_HostAddress}}/api/HttpStartOrchestrator
-Content-Type: application/json
-
 {
-  "process": "docnavtest",
-  "variant": "base",
-  "documentReference": "YOUR_BLOB_PDF_URL"
+  "profiles": {
+    "AdaptiveOrchestrator": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7059",
+      "launchBrowser": false,
+      "environmentVariables": {
+        "DOCNAV_BASE_URL": "dummy",
+        "DOCNAV_SUBSCRIPTION_KEY": "dummy",
+        "DOCNAV_JWT": "dummy"
+      }
+    }
+  }
 }
