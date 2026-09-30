@@ -1,1 +1,8 @@
-For local DocNavLocalTest only, change the BlobDocumentSource authentication so that it uses AzureCliCredential instead of DefaultAzureCredential. Do not change any other DocNav functionality or production architecture. Keep the change minimal and show me exactly what file you changed before I run it.
+builder.Services.AddSingleton(new DocNavServiceOptions
+{
+    BaseUrl = Environment.GetEnvironmentVariable("DOCNAV_BASE_URL")
+        ?? throw new InvalidOperationException("DOCNAV_BASE_URL is not configured"),
+
+    SubscriptionKey = Environment.GetEnvironmentVariable("DOCNAV_SUBSCRIPTION_KEY")
+        ?? throw new InvalidOperationException("DOCNAV_SUBSCRIPTION_KEY is not configured")
+});
