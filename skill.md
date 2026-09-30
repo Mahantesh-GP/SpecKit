@@ -1,8 +1,18 @@
-Review the constitution, spec.md, tasks.md and ADR files for this feature.
-
-For T001-T003, tell me:
-- who is required to approve each item,
-- where that approval must be recorded,
-- what exact evidence/status is required before the task can be marked complete.
-
-Do not modify any files and do not mark anything approved.
+{
+  "workflowId": "DOCNAV TEST",
+  "variantKey": "base",
+  "version": "1.0",
+  "enabled": true,
+  "steps": [
+    {
+      "id": "submit-doc-nav-job",
+      "type": "Activity",
+      "name": "SubmitDocNavJob",
+      "activityKey": "SubmitDocNavJob",
+      "enabled": true,
+      "inputs": {
+        "fields": ["documentReference"]
+      }
+    }
+  ]
+}
