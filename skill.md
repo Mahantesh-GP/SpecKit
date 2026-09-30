@@ -1,8 +1,4 @@
-builder.Services.AddSingleton(new DocNavServiceOptions
-{
-    BaseUrl = Environment.GetEnvironmentVariable("DOCNAV_BASE_URL")
-        ?? throw new InvalidOperationException("DOCNAV_BASE_URL is not configured"),
-
-    SubscriptionKey = Environment.GetEnvironmentVariable("DOCNAV_SUBSCRIPTION_KEY")
-        ?? throw new InvalidOperationException("DOCNAV_SUBSCRIPTION_KEY is not configured")
-});
+builder.Services.AddSingleton<IDocNavAccessTokenProvider>(_ =>
+    new DocNavAccessTokenProviderStub(
+        Environment.GetEnvironmentVariable("DOCNAV_JWT")
+        ?? throw new InvalidOperationException("DOCNAV_JWT is not configured")));
