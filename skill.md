@@ -1,1 +1,10 @@
-az storage blob download --blob-url "YOUR_DOCUMENT_REFERENCE_URL" --file ".\test.pdf" --auth-mode login
+using var content = new MultipartFormDataContent();
+
+var fileContent = new StreamContent(request.Document.Content);
+fileContent.Headers.ContentType =
+    new System.Net.Http.Headers.MediaTypeHeaderValue("application/pdf");
+
+content.Add(
+    fileContent,
+    "Package",
+    request.Document.FileName);
