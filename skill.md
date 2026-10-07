@@ -1,25 +1,3 @@
-Client / Postman
-    ↓
-HttpStartOrchestrator
-    ↓
-WorkflowDefinitionProvider
-    ↓
-Resolved workflow snapshot
-    ↓
-ProcessOrchestrator
-    ↓
-ActivityRegistry / Durable activity boundary
-    ↓
-SubmitDocNavJobActivity
-    ↓
-BlobDocumentSource
-    ↓
-Azure Blob → PDF stream
-    ↓
-DocNavJobSubmissionService
-    ↓
-POST /api/v1/jobs/submit
-    ↓
-DocNav
-    ↓
-202 Accepted → requestId + monitorUrl
+I’ve prepared the PPT for our SDD/Spec Kit discussion with managers, focusing on the overall adoption journey, our brownfield experience, learnings from the Commitment Typing team’s hands-on usage, how SDD fits into the existing Scrum/ADO process, and how other project teams can adopt it.
+Could you please review the PPT and suggest if any changes or additional points are required?
+Also, for Slide 2, I’ve kept the BMAD section minimal because I don’t want to add anything based on assumptions. Could you please share the key context from our BMAD experience — where/how we used it, what we learned from it, and what influenced us to explore Spec Kit/SDD afterward?
