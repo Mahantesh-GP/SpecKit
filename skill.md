@@ -1,3 +1,20 @@
-I’ve prepared the PPT for our SDD/Spec Kit discussion with managers, focusing on the overall adoption journey, our brownfield experience, learnings from the Commitment Typing team’s hands-on usage, how SDD fits into the existing Scrum/ADO process, and how other project teams can adopt it.
-Could you please review the PPT and suggest if any changes or additional points are required?
-Also, for Slide 2, I’ve kept the BMAD section minimal because I don’t want to add anything based on assumptions. Could you please share the key context from our BMAD experience — where/how we used it, what we learned from it, and what influenced us to explore Spec Kit/SDD afterward?
+Hi All,
+
+As part of our exploration of Spec-Driven Development (SDD), we have evaluated approaches such as BMAD and GitHub Spec Kit through pilot implementations and existing project scenarios.
+
+We would like to share our journey, practical experiences, and key learnings, along with how SDD can fit into our existing development processes.
+
+Agenda:
+
+- Overview of SDD and our exploration journey
+- Pilot implementations, real project examples, and key learnings
+- How SDD can be incorporated into existing development practices
+- Available guidelines, walkthroughs, and support for teams
+- Feedback, potential pilot opportunities, and next steps
+
+Objective: To gather your perspectives and feedback on the proposed adoption approach before engaging with individual project teams.
+
+Based on the discussion, we will plan follow-up walkthrough sessions with the relevant teams.
+
+Thanks,
+Mahantesh
