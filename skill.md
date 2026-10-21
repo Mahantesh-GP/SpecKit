@@ -1,20 +1,15 @@
-Hi All,
+We are investigating how to introduce Spec-Driven Development into an existing .NET 8 + React + SQL Server Todo application.
 
-As part of our exploration of Spec-Driven Development (SDD), we have evaluated approaches such as BMAD and GitHub Spec Kit through pilot implementations and existing project scenarios.
+Scenario: An existing Todo pagination feature may need an enhancement to support selectable page sizes (10, 20, 50). This enhancement is hypothetical and must not be implemented.
 
-We would like to share our journey, practical experiences, and key learnings, along with how SDD can fit into our existing development processes.
+Perform READ-ONLY discovery:
+1. Identify the existing pagination implementation and trace its behavior across frontend, backend, and database where applicable.
+2. Identify existing business rules, validations, dependencies, and edge cases.
+3. Identify architecture documentation, relevant contracts, and regression tests.
+4. Explain what minimum context would be required to safely specify this enhancement.
+5. Identify which information can be derived from code and which requires product or business clarification.
+6. Cite specific files and symbols supporting every confirmed finding.
+7. Do not read or rely on existing Spec Kit specs/ artifacts during this initial code-first investigation.
+8. Do not modify files, run terminal commands, generate specifications, or implement anything.
 
-Agenda:
-
-- Overview of SDD and our exploration journey
-- Pilot implementations, real project examples, and key learnings
-- How SDD can be incorporated into existing development practices
-- Available guidelines, walkthroughs, and support for teams
-- Feedback, potential pilot opportunities, and next steps
-
-Objective: To gather your perspectives and feedback on the proposed adoption approach before engaging with individual project teams.
-
-Based on the discussion, we will plan follow-up walkthrough sessions with the relevant teams.
-
-Thanks,
-Mahantesh
+Return a structured discovery report in chat. Mark all uncertainties explicitly.
