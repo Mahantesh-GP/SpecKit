@@ -1,32 +1,48 @@
-We are preparing an enterprise Brownfield Spec Kit Adoption Guide.
+We are validating Chapter 1 of our Enterprise Brownfield Spec Kit Adoption Guide using the existing Todo application.
 
-For now, focus ONLY on constitution assessment for the existing Todo application.
+Perform a READ-ONLY constitution validation.
 
-Perform a READ-ONLY review.
+Read:
 
-1. Read ".specify/memory/constitution.md".
-2. Inspect the actual application structure, source code, dependency files, tests and available project documentation.
-3. Identify which constitution principles are supported by the existing repository.
-4. Identify principles that are generic, unsupported, outdated, contradictory or missing.
-5. Check whether the constitution addresses:
-   - Existing architecture and coding conventions
-   - Backward compatibility
-   - Regression testing
-   - Minimal change scope
-   - Security and data handling
-   - Cross-feature dependencies
-   - Specification evolution and drift
-   - Governance and amendments
-6. For every finding, provide the relevant constitution section and repository file evidence.
-7. Recommend a reusable constitution structure suitable for other brownfield projects, separating mandatory general guidance from project-specific placeholders.
+- .specify/memory/constitution.md
+- README.md
+- requirements.txt
+- app/ source files
+- tests/
+- Existing feature specifications and relevant plans
 
-Do not edit any files.
-Do not execute Spec Kit commands.
-Do not create a new constitution.
-Do not modify application code or tests.
+Do not modify any files or execute Spec Kit commands.
 
-Return:
-A. Current constitution summary
-B. Evidence-based gap analysis
-C. Recommended brownfield constitution template structure
-D. Questions requiring developer or architect decisions.
+Evaluate these proposed brownfield constitution principles:
+
+1. Requirements traceability and approved sources
+2. No silent invention
+3. Existing behavior as the baseline
+4. Backward compatibility
+5. Regression protection
+6. Minimal change scope
+7. Existing architecture and coding conventions
+8. Simplicity and dependency control
+9. Security and data handling
+10. Database and schema evolution
+11. Cross-feature dependency impact
+12. Specification evolution and drift
+13. Definition of Done
+
+For each principle, report:
+
+- Whether it is already covered by the current constitution
+- Supporting repository evidence, including file paths
+- Any contradiction with existing behavior or development practices
+- Whether it should be mandatory, project-specific, or require approval
+- A proposed testable rule and how developers can verify compliance
+
+Additionally:
+
+- Identify rules that should NOT be introduced without architect approval.
+- Separate existing technical facts from proposed engineering policies.
+- Identify any missing information required to finalize the constitution.
+
+Return a structured validation matrix and a prioritized list of unresolved decisions.
+
+Do not generate or update the constitution yet.
