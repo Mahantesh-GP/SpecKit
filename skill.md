@@ -1,23 +1,30 @@
-Save the completed read-only brownfield constitution validation as a Markdown assessment document under docs/brownfield-adoption/.
+Using "constitution-validation-assessment.md" and "constitution-assessment.md" as the primary evidence, prepare a proposed Brownfield Constitution for this existing Todo application.
 
-Include:
+Objective: Create a practical, reusable constitution structure for adopting GitHub Spec Kit in existing enterprise projects.
 
-1. Purpose and scope of the assessment
-2. Verified Todo repository facts
-3. Current constitution assessment
-4. Complete 13-principle validation matrix
-5. Evidence and file references
-6. Existing contradictions and technical risks
-7. Proposed reusable brownfield constitution principles
-8. Separation of mandatory principles, project-specific placeholders, and architect-approval decisions
-9. Prioritized unresolved decisions (P0–P3)
-10. Limitations of this pilot as evidence for true legacy-project adoption
-11. Recommendations for the Enterprise Brownfield Spec Kit Adoption Guide
+Instructions:
 
-Clearly distinguish VERIFIED FACT, PROPOSED POLICY, and REQUIRES APPROVAL.
+1. Read the existing ".specify/memory/constitution.md" and preserve its valid principles.
+2. Use the 13 principles from the validation assessment as the starting point. Consolidate overlapping rules where appropriate, without losing important controls.
+3. Separate the constitution into:
+   - Part 1: Mandatory brownfield engineering principles.
+   - Part 2: Project-specific architecture and coding conventions, grounded in repository evidence.
+   - Part 3: SDD workflow, validation gates, and experimental exceptions.
+   - Part 4: Governance, approvals, amendments, and ownership.
+4. Address existing behavior preservation, backward compatibility, regression testing, minimal change scope, cross-feature impact, specification evolution, and Definition of Done.
+5. Include a clear workflow for existing projects: discovery → constitution → specify/clarify → plan → tasks → analyze → implement → validate.
+6. Mark all unresolved decisions as "REQUIRES APPROVAL". Do not invent organizational policies, owners, or approval decisions.
+7. Clearly distinguish general enterprise guidance from Todo-specific implementation details.
+8. Include a brief mapping showing how the original constitution principles are preserved or extended.
+9. Do not treat AMD-001 as an approved business requirement.
 
-Preserve the original assessment findings. Do not claim any policy is approved.
+Output: Create only "docs/brownfield-constitution-proposal.md".
 
-Create only the assessment Markdown document. Do not modify the actual constitution, specifications, plans, tasks, application code, tests or Azure DevOps.
+Restrictions:
 
-Before creating the document, show git status and identify existing changes so we can distinguish them from your work. Afterward, report the exact file created and git diff summary.
+- Do not modify ".specify/memory/constitution.md".
+- Do not modify existing specs, plans, tasks, application code, tests, or Azure DevOps.
+- Do not execute Spec Kit commands.
+- Do not implement any feature.
+
+Stop after creating the draft and provide a summary of proposed principles, unresolved approvals, and files changed.
