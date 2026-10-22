@@ -1,24 +1,14 @@
-Using "brownfield-constitution-final-review.md" as the primary review reference, prepare a corrected version of "brownfield-constitution-proposal.md".
+Approved to proceed with the proposed draft corrections using your recommended defaults.
 
-Scope:
+Please:
 
-1. Address mandatory findings F-01 through F-09 and R-8.
-2. Separate reusable enterprise principles from Todo-specific implementation details.
-3. Move changing repository facts, test counts, feature status, and AMD-001 progress into a separate discovery/adoption-baseline document.
-4. Preserve the active constitution's existing protections. Do not weaken or replace them without an explicit pending decision.
-5. Define adoption-baseline handling for pre-existing non-compliance.
-6. Add proportionate tailoring for small, medium, and high-risk changes, with approval requirements clearly identified.
-7. Align workflow terminology with the installed Spec Kit workflow and custom skills in this repository.
-8. Preserve the distinction between verified repository evidence, proposed rules, and unresolved architecture decisions.
-9. Keep the proposal in DRAFT status. Mark decisions requiring organizational authority as PENDING rather than assuming approval.
-10. Produce a traceability table mapping each mandatory review finding to the proposed correction.
+1. Preserve the existing v0.1 proposal without overwriting any existing archive.
+2. Create the Todo discovery and adoption-baseline document.
+3. Prepare the corrected v0.2 DRAFT proposal and traceability table for F-01 through F-09 and R-8.
+4. Use "[ALL_CAPS]" placeholders where appropriate for the Spec Kit constitution template.
+5. Keep all organizational decisions, approvers, exemptions, adoption dates, and ratification details marked PENDING.
+6. Preserve the original constitution protections verbatim and clearly separate proposed extensions.
+7. Keep the active ".specify/memory/constitution.md" unchanged.
+8. Do not run Spec Kit commands, modify code or tests, or interact with ADO.
 
-Constraints:
-
-- Do not modify ".specify/memory/constitution.md".
-- Do not run "/speckit-constitution".
-- Do not modify application code, tests, existing feature specifications, or Azure DevOps.
-- Do not mark the constitution approved or ratified.
-- Before editing, show the intended file changes and identify any unresolved decisions that prevent a safe draft correction.
-
-Stop after presenting the proposed changes for my review.
+After editing, provide a summary of changed files, a diff review, and any remaining decisions requiring architect approval. Stop there.
