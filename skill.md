@@ -1,27 +1,18 @@
-We are conducting Experiment B of our brownfield SDD investigation.
+We are conducting Experiment C-A to evaluate the Living Specification approach for brownfield Spec Kit adoption.
 
-The code-first discovery and validation phases have been completed. All 27 existing automated tests passed, including 13 selected tests.
+Existing feature: 003-todo-list-ux-improvement.
+Proposed hypothetical enhancement: allow users to select 10, 20, or 50 Todos per page, retaining 10 as the default.
 
-Now perform a read-only comparison between the historical Spec Kit specifications, current source code, and regression tests.
+Analyze the existing spec.md, related planning artifacts, dependencies, application code, and tests.
 
-1. Identify the existing specifications related to Todo pagination and its dependencies.
-2. Compare the documented requirements and acceptance criteria against the implemented behavior.
-3. Classify each relevant requirement as:
-   - Matches implementation
-   - Missing from specification
-   - Documented but not implemented
-   - Contradicts implementation
-   - Cannot be verified
-4. Identify business intent or architectural decisions that the source code alone could not reveal.
-5. Determine whether the historical specifications provide useful context for introducing selectable page sizes (10, 20, 50).
-6. Recommend the minimum specification work needed before introducing the enhancement.
+Identify:
+1. Which existing requirements must change.
+2. Which requirements must remain unchanged.
+3. Conflicts with existing non-goals, assumptions, contracts, and data models.
+4. Dependencies on features 001, 002, and any other relevant feature.
+5. Missing product decisions requiring clarification.
+6. Risks of modifying the existing specification rather than creating a new one.
 
-Constraints:
+Do not modify any files, create specifications, implement code, or run Spec Kit commands yet.
 
-- Read only; do not modify any files.
-- Do not generate or update specifications.
-- Do not implement the enhancement.
-- Do not assume historical specifications are accurate merely because they exist.
-- Cite specific files and test names as evidence.
-
-Produce a comparison report suitable for evaluating brownfield Spec Kit adoption.
+Provide an evidence-based impact analysis referencing specific files and requirement IDs. Clearly distinguish verified behavior from assumptions.
