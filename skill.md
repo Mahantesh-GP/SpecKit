@@ -1,16 +1,24 @@
-Review "brownfield-constitution-proposal.md" against "constitution-assessment.md", "constitution-validation-assessment.md", and the existing ".specify/memory/constitution.md".
+Using "brownfield-constitution-final-review.md" as the primary review reference, prepare a corrected version of "brownfield-constitution-proposal.md".
 
-Perform a final read-only quality and adoption-readiness review.
+Scope:
 
-1. Verify that all 11 BF principles are supported by evidence or clearly marked as proposed.
-2. Identify rules that may be unnecessarily restrictive for other enterprise brownfield projects.
-3. Check whether any proposed rule conflicts with the current Todo application or active constitution.
-4. Check that project-specific details are not presented as universal enterprise policy.
-5. Verify that every approval-dependent rule has a corresponding decision-register entry.
-6. Identify the minimum decisions required before the proposal could be approved.
-7. Assess whether the proposal is suitable as a reusable template for other existing enterprise projects.
-8. Separate mandatory corrections from optional improvements.
+1. Address mandatory findings F-01 through F-09 and R-8.
+2. Separate reusable enterprise principles from Todo-specific implementation details.
+3. Move changing repository facts, test counts, feature status, and AMD-001 progress into a separate discovery/adoption-baseline document.
+4. Preserve the active constitution's existing protections. Do not weaken or replace them without an explicit pending decision.
+5. Define adoption-baseline handling for pre-existing non-compliance.
+6. Add proportionate tailoring for small, medium, and high-risk changes, with approval requirements clearly identified.
+7. Align workflow terminology with the installed Spec Kit workflow and custom skills in this repository.
+8. Preserve the distinction between verified repository evidence, proposed rules, and unresolved architecture decisions.
+9. Keep the proposal in DRAFT status. Mark decisions requiring organizational authority as PENDING rather than assuming approval.
+10. Produce a traceability table mapping each mandatory review finding to the proposed correction.
 
-Create "brownfield-constitution-final-review.md" with findings, severity, evidence, and recommended actions.
+Constraints:
 
-Do not modify the proposal, active constitution, feature specifications, plans, tasks, code, or tests. Do not execute implementation commands or update Azure DevOps.
+- Do not modify ".specify/memory/constitution.md".
+- Do not run "/speckit-constitution".
+- Do not modify application code, tests, existing feature specifications, or Azure DevOps.
+- Do not mark the constitution approved or ratified.
+- Before editing, show the intended file changes and identify any unresolved decisions that prevent a safe draft correction.
+
+Stop after presenting the proposed changes for my review.
