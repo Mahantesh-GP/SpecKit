@@ -1,23 +1,32 @@
-Continue Experiment C-A for Feature 003.
+We are preparing an enterprise Brownfield Spec Kit Adoption Guide.
 
-The living specification has been updated with AMD-001.
+For now, focus ONLY on constitution assessment for the existing Todo application.
 
-Now execute the downstream Spec Kit workflow:
+Perform a READ-ONLY review.
 
-1. Verify the active feature directory points to 003-todo-list-ux-improvement.
-2. Preserve the existing artifacts using a Git checkpoint.
-3. Run /speckit.plan to update the technical design.
-4. Run /speckit.tasks to update implementation tasks.
-5. Run /speckit.analyze to validate consistency.
+1. Read ".specify/memory/constitution.md".
+2. Inspect the actual application structure, source code, dependency files, tests and available project documentation.
+3. Identify which constitution principles are supported by the existing repository.
+4. Identify principles that are generic, unsupported, outdated, contradictory or missing.
+5. Check whether the constitution addresses:
+   - Existing architecture and coding conventions
+   - Backward compatibility
+   - Regression testing
+   - Minimal change scope
+   - Security and data handling
+   - Cross-feature dependencies
+   - Specification evolution and drift
+   - Governance and amendments
+6. For every finding, provide the relevant constitution section and repository file evidence.
+7. Recommend a reusable constitution structure suitable for other brownfield projects, separating mandatory general guidance from project-specific placeholders.
 
-Requirements:
+Do not edit any files.
+Do not execute Spec Kit commands.
+Do not create a new constitution.
+Do not modify application code or tests.
 
-- Preserve existing functionality and historical decisions.
-- Do not lose or overwrite previously completed tasks.
-- Incorporate AMD-001 across the relevant artifacts.
-- Keep the enhancement marked experimental, not ADO-approved.
-- Do not implement application code.
-- Do not publish anything to Azure DevOps.
-- Stop and request approval before any destructive regeneration.
-
-Finally, report which artifacts were updated, what was preserved, and any manual corrections required.
+Return:
+A. Current constitution summary
+B. Evidence-based gap analysis
+C. Recommended brownfield constitution template structure
+D. Questions requiring developer or architect decisions.
