@@ -1,18 +1,28 @@
-We are conducting Experiment C-A to evaluate the Living Specification approach for brownfield Spec Kit adoption.
+We are continuing Experiment C-A: Living Specification for brownfield Spec Kit adoption.
 
-Existing feature: 003-todo-list-ux-improvement.
-Proposed hypothetical enhancement: allow users to select 10, 20, or 50 Todos per page, retaining 10 as the default.
+The impact analysis is complete.
 
-Analyze the existing spec.md, related planning artifacts, dependencies, application code, and tests.
+Our experimental enhancement is to allow selection of 10, 20, or 50 Todo items per page.
 
-Identify:
-1. Which existing requirements must change.
-2. Which requirements must remain unchanged.
-3. Conflicts with existing non-goals, assumptions, contracts, and data models.
-4. Dependencies on features 001, 002, and any other relevant feature.
-5. Missing product decisions requiring clarification.
-6. Risks of modifying the existing specification rather than creating a new one.
+This is a hypothetical experiment requirement, not an approved ADO user story.
 
-Do not modify any files, create specifications, implement code, or run Spec Kit commands yet.
+Task: Prepare a proposed living-spec revision plan for existing feature 003.
 
-Provide an evidence-based impact analysis referencing specific files and requirement IDs. Clearly distinguish verified behavior from assumptions.
+1. Identify exactly which sections of "003/spec.md" need updating.
+2. Preserve the original clarification and decision history. Propose an amendment rather than silently overwriting earlier decisions.
+3. Identify the existing requirement IDs to retain or amend and propose new IDs only where necessary.
+4. Explain how to record the new experimental requirement without falsely claiming ADO approval.
+5. Identify related changes needed in "plan.md", "research.md", "data-model.md", contracts, tasks, and tests.
+6. Identify how existing features 001, 002, and draft 004 should be protected.
+7. Propose a safe order for updating specification artifacts and running consistency checks.
+8. Explain which Spec Kit commands are appropriate for this living-spec workflow and which commands could accidentally create a new feature.
+
+Important constraints:
+
+- Do not modify any files.
+- Do not implement code.
+- Do not create a new feature specification.
+- Do not invent approval or product decisions.
+- Clearly distinguish verified findings from recommendations.
+
+Return the proposed revision plan for review.
