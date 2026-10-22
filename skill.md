@@ -1,48 +1,23 @@
-We are validating Chapter 1 of our Enterprise Brownfield Spec Kit Adoption Guide using the existing Todo application.
+Save the completed read-only brownfield constitution validation as a Markdown assessment document under docs/brownfield-adoption/.
 
-Perform a READ-ONLY constitution validation.
+Include:
 
-Read:
+1. Purpose and scope of the assessment
+2. Verified Todo repository facts
+3. Current constitution assessment
+4. Complete 13-principle validation matrix
+5. Evidence and file references
+6. Existing contradictions and technical risks
+7. Proposed reusable brownfield constitution principles
+8. Separation of mandatory principles, project-specific placeholders, and architect-approval decisions
+9. Prioritized unresolved decisions (P0–P3)
+10. Limitations of this pilot as evidence for true legacy-project adoption
+11. Recommendations for the Enterprise Brownfield Spec Kit Adoption Guide
 
-- .specify/memory/constitution.md
-- README.md
-- requirements.txt
-- app/ source files
-- tests/
-- Existing feature specifications and relevant plans
+Clearly distinguish VERIFIED FACT, PROPOSED POLICY, and REQUIRES APPROVAL.
 
-Do not modify any files or execute Spec Kit commands.
+Preserve the original assessment findings. Do not claim any policy is approved.
 
-Evaluate these proposed brownfield constitution principles:
+Create only the assessment Markdown document. Do not modify the actual constitution, specifications, plans, tasks, application code, tests or Azure DevOps.
 
-1. Requirements traceability and approved sources
-2. No silent invention
-3. Existing behavior as the baseline
-4. Backward compatibility
-5. Regression protection
-6. Minimal change scope
-7. Existing architecture and coding conventions
-8. Simplicity and dependency control
-9. Security and data handling
-10. Database and schema evolution
-11. Cross-feature dependency impact
-12. Specification evolution and drift
-13. Definition of Done
-
-For each principle, report:
-
-- Whether it is already covered by the current constitution
-- Supporting repository evidence, including file paths
-- Any contradiction with existing behavior or development practices
-- Whether it should be mandatory, project-specific, or require approval
-- A proposed testable rule and how developers can verify compliance
-
-Additionally:
-
-- Identify rules that should NOT be introduced without architect approval.
-- Separate existing technical facts from proposed engineering policies.
-- Identify any missing information required to finalize the constitution.
-
-Return a structured validation matrix and a prioritized list of unresolved decisions.
-
-Do not generate or update the constitution yet.
+Before creating the document, show git status and identify existing changes so we can distinguish them from your work. Afterward, report the exact file created and git diff summary.
