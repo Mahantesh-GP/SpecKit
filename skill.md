@@ -1,19 +1,23 @@
-Review the existing "brownfield-constitution-proposal.md" (v0.2), "constitution-assessment.md", "constitution-validation-assessment.md", the active constitution, and the discovery document.
+lBased on your completed read-only review of the brownfield constitution proposal v0.2, prepare a corrected v0.3 draft.
 
-Objective: Determine whether the proposed brownfield constitution is ready for review and what decisions are required before adoption.
+Requirements:
 
-Perform a READ-ONLY review.
+1. Fix the drafting issues identified in your prioritized action table, especially the rules about PENDING decisions, BF-10 reconciliation, BF-11 validation, tailoring, historical principle references, and contradictions between sections.
+2. Preserve all original v1.0 constitution principles, Development Workflow, Scope Boundary and Governance without weakening them.
+3. Clearly distinguish mandatory rules, proposed extensions, inactive rules awaiting decisions, and manual review controls.
+4. Do not invent organizational approvals, approvers, dates, thresholds or policies. Keep these PENDING.
+5. Separate reusable brownfield guidance from Todo-specific discovery and AMD-001 experiment details.
+6. Do not treat AMD-001 as approved. Document the conflict and its required decision without modifying feature 003.
+7. Make rules practical for the installed Spec Kit skills. Where automation is unavailable, explicitly describe the manual verification required.
+8. Update the decision register and provide a v0.2-to-v0.3 change summary.
 
-1. Verify that all original v1.0 constitution principles, workflow, scope boundary, and governance rules are preserved without weakening.
-2. Review BF-1 through BF-11 for contradictions, duplication, ambiguity, and impractical rules.
-3. Examine Appendix C and classify pending decisions into:
-   - BLOCKER: must be decided before adopting the constitution.
-   - DEFERABLE: can remain pending without activating the dependent rule.
-   - PROJECT-SPECIFIC: belongs in the Todo discovery document rather than the general constitution.
-4. Identify any proposed rules that cannot currently be enforced by our installed Spec Kit skills or workflow.
-5. Verify that the Small, Medium, and High-risk tailoring rules are consistent with the preserved constitution.
-6. Identify any contradictions involving experimental requirements, especially AMD-001.
-7. Produce a prioritized action table containing issue, severity, affected section, recommended resolution, and required approver.
-8. Give a final verdict: READY FOR APPROVAL REVIEW or NEEDS REVISION.
+Scope: Update only the draft proposal and its directly related draft review documentation. Do not modify the active constitution, feature specifications, plans, tasks, application code, tests, or Azure DevOps.
 
-Do not edit any files. Do not execute Spec Kit commands, update the active constitution, implement code, or change Azure DevOps.
+After editing, perform a read-only validation and report:
+
+- What was corrected
+- What remains pending
+- Whether v0.3 is ready for stakeholder review
+- Any unresolved high-severity contradictions
+
+Stop for my review. Do not ratify or activate the proposal.
