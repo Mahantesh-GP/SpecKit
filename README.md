@@ -1,50 +1,52 @@
-Developer adoption entry point \| Greenfield + Brownfield \| Review draft
+# Brownfield — Spec Kit SDD: Start Here
 
-Purpose: make it possible for a team to begin with one approved, bounded feature while respecting existing Scrum, Azure DevOps, architecture, security and PR/QA controls.
+**Use this when:** existing application or service.
 
-# Choose your path
+> Status: developer adoption guidance for review, not approved enterprise policy. Follow existing ADO, architecture, security, and PR approvals. Diagram stages are a navigation aid, not an automated approval mechanism.
 
-| Situation                          | Start with                          | Focus                                                                               |
-|------------------------------------|-------------------------------------|-------------------------------------------------------------------------------------|
-| New application/service            | Greenfield guide                    | Confirm requirements, architecture and project guardrails before the first feature. |
-| Existing application/service       | Brownfield guide                    | Preserve current behavior and approved rules; discover only the relevant slice.     |
-| Existing Spec Kit team, next story | Relevant guide: subsequent features | Reuse verified context and recheck touched modules and tests.                       |
-| Change to approved feature         | Brownfield: specification evolution | Record approved baseline, change owner, affected artifacts and authorization.       |
+[← Choose Greenfield or Brownfield](../README.md) · [Full developer guide](./developer-guide.md) · [Process diagram only](./process-flow.md)
 
-# First feature: practical execution
+## Process at a glance
 
-| Step                         | Who                            | Done when                                                                                          |
-|------------------------------|--------------------------------|----------------------------------------------------------------------------------------------------|
-| 1\. Confirm the story        | Product owner/BA + developer   | Approved scope, acceptance criteria, source link and owner.                                        |
-| 2\. Confirm the workspace    | Lead developer / architect     | Repo boundary, existing constitution, architecture, local Spec Kit commands.                       |
-| 3\. Discover current context | Assigned developer             | Relevant code and tests, known constraints, unknowns; read-only first.                             |
-| 4\. Specify and clarify      | Developer + requirement owner  | Run installed /speckit.specify and /speckit.clarify as appropriate; review generated requirements. |
-| 5\. Plan and task            | Developer + technical reviewer | Use installed /speckit.plan and /speckit.tasks; assess interfaces, dependencies and tests.         |
-| 6\. Analyze and decide       | Developer + owners             | Use /speckit.analyze where available; resolve material findings and approvals.                     |
-| 7\. Implement and validate   | Developer + QA/reviewer        | Use /speckit.implement only when authorized; test, inspect diffs and follow PR/ADO controls.       |
+```mermaid
+flowchart TD
+ A[Approved story or proposed change] --> B[Map existing repository and architecture]
+ B --> C[Read current constitution, specs, code and tests]
+ C --> D[Focused impact and dependency discovery]
+ D --> E{New feature or change to existing behavior?}
+ E -->|New feature| F[Create bounded feature specification]
+ E -->|Existing behavior| G[Agree living-spec, addendum or change-spec strategy]
+ F --> H[Clarify, plan and create tasks]
+ G --> H
+ H --> I[Consistency review and human approvals]
+ I --> J{Authorized?}
+ J -->|No| H
+ J -->|Yes| K[Implement, regression test, PR and traceability]
+```
 
-# When to stop and ask
+## Click a step to read only what you need
 
-- Requirement or acceptance criteria not approved or ambiguous.
+| Step | What to do | Relevant guidance |
+|---|---|---|
+| 1 | Map repository and select workspace | [Open detailed instructions](./developer-guide.md) |
+| 2 | Review existing constitution and approved baseline | [Open detailed instructions](./developer-guide.md#11-what-a-constitution-is) |
+| 3 | Discover code and dependencies | [Open detailed instructions](./developer-guide.md) |
+| 4 | Decide new feature vs existing change | [Open detailed instructions](./developer-guide.md#41-what-is-specification-evolution) |
+| 5 | Specify, clarify, plan and tasks | [Open detailed instructions](./developer-guide.md#33-practical-workflow-for-feature-2-onward) |
+| 6 | Analyze and obtain approvals | [Open detailed instructions](./developer-guide.md#33-practical-workflow-for-feature-2-onward) |
+| 7 | Implement and run regression tests | [Open detailed instructions](./developer-guide.md#59-risk-based-regression-and-change-control) |
 
-- Shared API/schema/security change lacks a responsible reviewer.
+## Before you start
 
-- Constitution would introduce or override mandatory project rules.
+- Confirm the source story/change, owner, acceptance criteria and approval status.
+- Verify the repository and the installed Spec Kit commands rather than assuming every alias exists.
+- Keep AI-generated drafts and experimental changes separate from approved requirements.
+- Never treat `/speckit.analyze` or passing existing tests as proof of business approval or complete regression coverage.
 
-- A generated spec conflicts with implemented behavior or an approved earlier feature.
+## What to share with your team
 
-- Tool output omits requested files or test evidence is missing.
+Send this `README.md` link first. The flow shows the journey; the table opens the exact guidance; `developer-guide.md` preserves the detailed examples, prompts, and pilot evidence.
 
-# Validated vs proposed
+## Pilot evidence
 
-Pilot observation: Greenfield .NET 8/React/SQL Server Todo exercised the Spec Kit lifecycle; Brownfield Adaptive Workflow/DocNav explored integration boundaries; Brownfield Flask Todo/Repomix generated a focused five-file context snapshot. These are not controlled productivity benchmarks.
-
-Not validated: organization-wide token savings, delivery acceleration, adoption of community tools, or implementation of the experimental Todo AMD-001 10/20/50 pagination behavior.
-
-# Guide navigation
-
-Brownfield detailed guide: constitution → first-feature discovery → subsequent features → specification evolution → dependencies → large/multi-project repositories.
-
-Greenfield detailed guide: initialization and constitution → first feature → subsequent features → Agile/ADO integration → quality and rollout.
-
-Document status: Proposed developer guidance. Team-specific standards, authorization and actual installed Spec Kit command names take precedence.
+- [Section 2.4: Repomix experiment on Flask Todo, observations and limitations](developer-guide.md#24--actual-repomix-experiment-flask-todo-brownfield-pilot)
