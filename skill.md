@@ -1,1 +1,1 @@
-uv tool install specify-cli --from git+https://github.com/github/spec-kit.git --native-tls
+uv tool install specify-cli --from git+https://github.com/github/spec-kit.git --python 3.12 --native-tls
