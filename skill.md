@@ -1,1 +1,5 @@
-Create an xUnit test project for evaluating TDD on 003-reusable-storage-abstraction. Add it to ProcessAutomation.slnx and reference the appropriate implementation project. Do not implement feature functionality or modify the original spec.md, existing production code, or Constitution. Configure the test project and run a simple baseline test to verify test discovery. Show all proposed changes before applying them.
+/speckit-tdd-plan
+Plan TDD implementation for specs/003-reusable-storage-abstraction/spec.md.
+Start with User Story 1: Store and retrieve process documents.
+Use the existing xUnit test project. Identify the first small testable behavior, required production library, and test cases.
+Follow RED → GREEN → REFACTOR. Do not modify the original specification, Constitution, or protected projects. Do not implement code yet.
