@@ -1,10 +1,1 @@
-$rg = "func-porcessautomation_group"
-$app = "func-porcessautomation"
-$sub = az account show --query id -o tsv
-
-
-az functionapp config appsettings list --name $app --resource-group $rg --query "[].name" --output table
-
-$url = "https://management.azure.com/subscriptions/$sub/resourceGroups/$rg/providers/Microsoft.Web/sites/$app/syncfunctiontriggers?api-version=2022-03-01"
-
-az rest --method POST --url $url
+az rest --method post --url "https://management.azure.com/subscriptions/47669469-4964-45a5-bfc0-36f44d57beab/resourceGroups/func-porcessautomation_group/providers/Microsoft.Web/sites/func-porcessautomation/syncfunctiontriggers?api-version=2022-03-01"
