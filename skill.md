@@ -1,1 +1,1 @@
-az functionapp config appsettings list --name func-porcessautomation --resource-group func-porcessautomation_group --query "[].name" --output table
+az functionapp function list --name func-porcessautomation --resource-group func-porcessautomation_group --query "[].name" --output table
