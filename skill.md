@@ -1,1 +1,1 @@
-az rest --method post --url "https://management.azure.com/subscriptions/47669469-4964-45a5-bfc0-36f44d57beab/resourceGroups/func-porcessautomation_group/providers/Microsoft.Web/sites/func-porcessautomation/syncfunctiontriggers?api-version=2022-03-01"
+az functionapp config appsettings list --name func-porcessautomation --resource-group func-porcessautomation_group --query "[].name" --output table
