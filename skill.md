@@ -1,8 +1,9 @@
-union isfuzzy=true traces, exceptions
-| where timestamp > ago(2h)
-| project timestamp, message = coalesce(
-    tostring(column_ifexists("outerMessage", "")),
-    tostring(column_ifexists("message", ""))
-)
+traces
+| where timestamp > ago(24h)
+| where message contains "Error"
+    or message contains "Exception"
+    or message contains "Host"
+    or message contains "Worker"
+| project timestamp, severityLevel, message
 | order by timestamp desc
 | take 50
