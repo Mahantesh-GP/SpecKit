@@ -1,9 +1,18 @@
-traces
-| where timestamp > ago(24h)
-| where message contains "Error"
-    or message contains "Exception"
-    or message contains "Host"
-    or message contains "Worker"
-| project timestamp, severityLevel, message
-| order by timestamp desc
-| take 50
+{
+  "folders": [
+    { "path": "FUnctionTest" },
+    { "path": "FUnctionTest2" }
+  ],
+  "launch": {
+    "configurations": [],
+    "compounds": [
+      {
+        "name": "Attach to both apps",
+        "configurations": [
+          "Attach to app1",
+          "Attach to app2"
+        ]
+      }
+    ]
+  }
+}
