@@ -1,5 +1,4 @@
-az functionapp config appsettings list `
-  --name func-processautomation `
+az functionapp deployment source config-zip `
   --resource-group func-processautomation_group `
-  --query "[?starts_with(name, 'Email__')].{Setting:name,Configured:value!=null && value!=''}" `
-  -o table
+  --name func-processautomation `
+  --src .\publish-combined.zip
