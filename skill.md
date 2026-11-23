@@ -1,18 +1,17 @@
-{
-  "folders": [
-    { "path": "FUnctionTest" },
-    { "path": "FUnctionTest2" }
-  ],
-  "launch": {
-    "configurations": [],
-    "compounds": [
-      {
-        "name": "Attach to both apps",
-        "configurations": [
-          "Attach to app1",
-          "Attach to app2"
-        ]
-      }
-    ]
-  }
-}
+dotnet publish .\AdaptiveOrchestrator\AdaptiveOrchestrator.csproj `
+  -c Release `
+  -o .\publish-combined
+
+
+
+Get-Content .\publish-combined\functions.metadata |
+  Select-String "HttpStartOrchestrator|OrderIntakeTimer"
+
+
+
+
+az functionapp show `
+  --name func-processautomation `
+  --resource-group func-processautomation_group `
+  --query "{Name:name,State:state,Kind:kind}" `
+  -o json
