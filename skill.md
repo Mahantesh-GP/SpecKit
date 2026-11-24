@@ -1,1 +1,7 @@
-az functionapp runtime config set -g func-processautomation_group -n func-multiprojectt-poc --runtime-version 8.0
+<ItemGroup>
+  <Compile Include="..\..\TestAzureFunction1\TestAzureFunction1\Function1.cs"
+           Link="Functions\TestFunction1.cs" />
+
+  <Compile Include="..\..\TestAzureFunction2\TestAzureFunction2\Function1.cs"
+           Link="Functions\TestFunction2.cs" />
+</ItemGroup>
