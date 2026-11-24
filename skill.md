@@ -1,7 +1,1 @@
-union traces, exceptions
-| where timestamp > ago(30m)
-| where severityLevel >= 3
-| project timestamp, message, outerMessage,
-    innermostMessage, details
-| order by timestamp desc
-| take 30
+az functionapp runtime config set -g func-processautomation_group -n func-multiprojectt-poc --runtime-version 8.0
